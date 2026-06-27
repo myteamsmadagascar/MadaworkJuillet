@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Dashboard | Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:#eef3fb;
+  color:#222;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
+}
+
+.logo{
+  display:block;
+  margin:auto;
+  width:230px;
+  max-width:90%;
+  cursor:pointer;
+  margin-bottom:18px;
+}
+
+.retour{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#17438f;
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  margin-bottom:18px;
+}
+
+.headerCard{
+  background:linear-gradient(135deg,#17438f,#1f5fc3);
+  border-radius:24px;
+  padding:28px;
+  color:white;
+  box-shadow:0 10px 30px rgba(0,0,0,.15);
+  margin-bottom:20px;
+}
+
+.bonjour{
+  font-size:30px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.info{
+  font-size:15px;
+  opacity:.96;
+  margin-top:6px;
+}
+
+.soldeBox{
+  margin-top:25px;
+  background:white;
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+}
+
+.soldeTitre{
+  font-size:15px;
+  color:#666;
+}
+
+.solde{
+  font-size:42px;
+  font-weight:800;
+  color:#00b050;
+  margin-top:8px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+
+.stat{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.statNombre{
+  font-size:32px;
+  font-weight:800;
+  color:#17438f;
+}
+
+.statTexte{
+  margin-top:8px;
+  font-size:14px;
+  color:#666;
+}
+
+.menu{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-top:22px;
+}
+
+.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  min-height:90px;
+  padding:15px;
+  border-radius:18px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:16px;
+  color:white;
+  box-shadow:0 8px 18px rgba(0,0,0,.12);
+  transition:.25s;
+}
+
+.btn:active{
+  transform:scale(.97);
+}
+
+.profils{
+  background:linear-gradient(135deg,#1f5fc3,#17438f);
+}
+
+.badge{
+  background:linear-gradient(135deg,#ff9800,#ff6f00);
+}
+
+.recharge{
+  background:linear-gradient(135deg,#00b050,#008c3b);
+}
+
+.achats{
+  background:linear-gradient(135deg,#9c27b0,#6a1b9a);
+}
+
+.annonces{
+  background:linear-gradient(135deg,#ff5252,#d32f2f);
+}
+
+.publier{
+  background:linear-gradient(135deg,#26c6da,#00838f);
+}
+
+.services{
+  background:linear-gradient(135deg,#5e35b1,#3949ab);
+}
+
+.contact{
+  background:linear-gradient(135deg,#ff4081,#d81c60);
+}
+
+.cv{
+  background:linear-gradient(135deg,#26a69a,#00897b);
+}
+
+.candidature{
+  background:linear-gradient(135deg,#795548,#5d4037);
+}
+
+.logout{
+  background:linear-gradient(135deg,#e53935,#b71c1c);
+}
+
+.footer{
+  margin:30px 0;
+  text-align:center;
+  font-size:13px;
+  color:#777;
+}
+
+@media(max-width:700px){
+  .menu{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .bonjour{
+    font-size:24px;
+  }
+
+  .solde{
+    font-size:34px;
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <button
+    class="retour"
+    onclick="window.location='index.html'">
+    ⬅ Retour
+  </button>
+
+  <img
+    src="logomadw.png"
+    class="logo"
+    onclick="window.location='index.html'">
+
+  <div class="headerCard">
+
+    <div id="nom" class="bonjour">
+      Chargement...
+    </div>
+
+    <div id="telephone" class="info">
+      📞 Chargement...
+    </div>
+
+    <div id="email" class="info">
+      📧 Chargement...
+    </div>
+
+    <div class="soldeBox">
+      <div class="soldeTitre">
+        💰 Solde disponible
+      </div>
+      <div id="solde" class="solde">
+        0 Ar
+      </div>
+    </div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div id="nbAchats" class="statNombre">
+          0
+        </div>
+        <div class="statTexte">
+          Achats
+        </div>
+      </div>
+
+      <div class="stat">
+        <div id="nbTransactions" class="statNombre">
+          0
+        </div>
+        <div class="statTexte">
+          Transactions
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="menu">
+
+    <a href="profils.html" class="btn profils">
+      📋<br>
+      Profils<br>
+      mis en avant
+    </a>
+
+    <a href="creer_profil.html" class="btn profils">
+      📋<br>
+      Proposer <br>mon profil 
+    </a>
+    
+    <a href="demande_badge.html" class="btn badge">
+      🏅<br>
+      Demande<br>
+      de badge
+    </a>
+
+    <a href="recharge.html" class="btn recharge">
+      💰<br>
+      Recharger<br>
+      mon compte
+    </a>
+
+    <a href="achats.html" class="btn achats">
+      🧾<br>
+      Mes achats
+    </a>
+
+    <a href="annonces.html" class="btn annonces">
+      📢<br>
+      Annonces &<br>
+      Opportunités
+    </a>
+
+    <a href="publier-annonce.html" class="btn publier">
+      📣<br>
+      Publier<br>
+      une annonce
+    </a>
+
+    <a href="services.html" class="btn services">
+      🛠️<br>
+      Services<br>
+      Madawork
+    </a>
+
+    <a href="contact.html" class="btn contact">
+      📞<br>
+      Contacter<br>
+      Madawork
+    </a>
+
+    <a href="cv.html" class="btn cv">
+      📄<br>
+      Créer un CV<br>
+      gratuit
+    </a>
+
+    <a href="https://portail.madawork.com/postuler" class="btn candidature">
+      💼<br>
+      Déposer ma<br>
+      candidature
+    </a>
+
+    <button
+      class="btn logout"
+      onclick="logout()">
+      🚪<br>
+      Déconnexion
+    </button>
+
+  </div>
+
+  <div class="footer">
+    <b>Madawork.com</b><br>
+    Trouver le talent, construire l'avenir.
+  </div>
+
+</div>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+window.onload = function(){
+  chargerUtilisateur();
+  chargerAchats();
+  chargerTransactions();
+};
+
+async function chargerUtilisateur(){
+  const userId = localStorage.getItem("userId");
+
+  if(!userId){
+    window.location = "login.html";
+    return;
+  }
+
+  try{
+    const response = await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"text/plain;charset=utf-8"
+      },
+      body:JSON.stringify({
+        action:"getUser",
+        userId:userId
+      })
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+      const prenom = data.user.prenom || "";
+      const nom    = data.user.nom || "";
+      const tel    = data.user.telephone || "-";
+      const email  = data.user.email || "-";
+      const solde  = Number(data.user.solde || 0)
+                      .toLocaleString("fr-FR") + " Ar";
+
+      // Nom : on garde le HTML pour le style, mais on met le texte dans span via textContent
+      const nomEl = document.getElementById("nom");
+      nomEl.innerHTML = "👋 Bonjour<br><span style='font-size:20px;font-weight:600;'></span>";
+      nomEl.querySelector("span").textContent = (prenom + " " + nom).trim();
+
+      // Téléphone : texte brut
+      const telEl = document.getElementById("telephone");
+      telEl.textContent = "📞 " + tel;
+
+      // Email : texte brut (aucun problème avec @ ou caractères spéciaux)
+      const emailEl = document.getElementById("email");
+      emailEl.textContent = "📧 " + email;
+
+      // Solde : texte brut
+      document.getElementById("solde").textContent = solde;
+
+    }else{
+      window.location = "login.html";
+    }
+  }catch(err){
+    console.log(err);
+    const nomEl = document.getElementById("nom");
+    nomEl.textContent = "Erreur de connexion";
+  }
+}
+
+async function chargerAchats(){
+  const userId = localStorage.getItem("userId");
+  if(!userId) return;
+
+  try{
+    const response = await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"text/plain;charset=utf-8"
+      },
+      body:JSON.stringify({
+        action:"getAchats",
+        userId:userId
+      })
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+      document.getElementById("nbAchats").textContent = data.achats.length;
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
+async function chargerTransactions(){
+  const userId = localStorage.getItem("userId");
+  if(!userId) return;
+
+  try{
+    const response = await fetch(API,{
+      method:"POST",
+      headers:{
+        "Content-Type":"text/plain;charset=utf-8"
+      },
+      body:JSON.stringify({
+        action:"getTransactions",
+        userId:userId
+      })
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+      document.getElementById("nbTransactions").textContent = data.transactions.length;
+    }
+  }catch(err){
+    console.log(err);
+  }
+}
+
+function logout(){
+  if(confirm("Voulez-vous vous déconnecter ?")){
+    localStorage.clear();
+    window.location = "login.html";
+  }
+}
+</script>
+
+</body>
+</html>

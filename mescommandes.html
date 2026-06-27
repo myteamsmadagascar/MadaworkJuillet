@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Mes commandes | Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+color:#222;
+}
+
+.header{
+background:white;
+padding:20px;
+text-align:center;
+box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+width:220px;
+max-width:90%;
+cursor:pointer;
+}
+
+.retour{
+display:block;
+max-width:1100px;
+margin:20px auto;
+padding:15px;
+background:#17438f;
+color:white;
+text-decoration:none;
+text-align:center;
+font-weight:700;
+border-radius:14px;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:15px;
+}
+
+.titre{
+font-size:34px;
+font-weight:800;
+color:#17438f;
+text-align:center;
+margin-bottom:10px;
+}
+
+.sousTitre{
+text-align:center;
+color:#666;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+.commande{
+
+background:white;
+border-radius:20px;
+padding:22px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+margin-bottom:20px;
+
+}
+
+.numero{
+
+font-size:14px;
+color:#888;
+margin-bottom:10px;
+
+}
+
+.service{
+
+font-size:24px;
+font-weight:800;
+color:#17438f;
+margin-bottom:12px;
+
+}
+
+.info{
+
+margin:8px 0;
+font-size:15px;
+line-height:1.7;
+
+}
+
+.badge{
+
+display:inline-block;
+padding:8px 16px;
+border-radius:30px;
+font-size:13px;
+font-weight:700;
+color:white;
+margin-top:12px;
+
+}
+
+.paye{
+background:#ff9800;
+}
+
+.encours{
+background:#1f5fc3;
+}
+
+.termine{
+background:#00b050;
+}
+
+.annule{
+background:#e53935;
+}
+
+.actions{
+
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:20px;
+
+}
+
+.btn{
+
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+color:white;
+
+}
+
+.detail{
+
+background:#17438f;
+
+}
+
+.contact{
+
+background:#00b050;
+
+}
+
+.vide{
+
+display:none;
+background:white;
+padding:50px;
+text-align:center;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+@media(max-width:700px){
+
+.actions{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="dashboard.html">
+
+<img
+src="logomadw.png"
+class="logo">
+
+</a>
+
+</div>
+
+<a
+href="dashboard.html"
+class="retour">
+
+⬅ Retour au tableau de bord
+
+</a>
+
+<div class="container">
+
+<div class="titre">
+
+📦 Mes commandes
+
+</div>
+
+<div class="sousTitre">
+
+Retrouvez ici toutes vos commandes de services effectuées sur Madawork.com.
+
+</div>
+
+<div
+id="listeCommandes">
+
+</div>
+
+<div
+id="vide"
+class="vide">
+
+Vous n'avez encore passé aucune commande.
+
+</div>
+</div>
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let commandes=[];
+
+window.onload=function(){
+
+chargerCommandes();
+
+};
+
+async function chargerCommandes(){
+
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"getCommandes",
+
+userId:localStorage.getItem("userId")
+
+})
+
+});
+
+const result=await response.json();
+
+if(result.success){
+
+commandes=result.commandes||[];
+
+afficherCommandes(commandes);
+
+}else{
+
+document.getElementById("vide").style.display="block";
+
+}
+
+}catch(err){
+
+console.log(err);
+
+alert("Impossible de charger vos commandes.");
+
+}
+
+}
+
+function afficherCommandes(liste){
+
+const zone=document.getElementById("listeCommandes");
+const vide=document.getElementById("vide");
+
+zone.innerHTML="";
+
+if(liste.length===0){
+
+vide.style.display="block";
+return;
+
+}
+
+vide.style.display="none";
+liste.forEach(cmd=>{
+
+let classe="paye";
+
+if(cmd.statut==="EN_COURS") classe="encours";
+if(cmd.statut==="TERMINE") classe="termine";
+if(cmd.statut==="ANNULE") classe="annule";
+
+zone.innerHTML+=`
+
+<div class="commande">
+
+<div class="numero">
+
+Commande : ${cmd.id}
+
+</div>
+
+<div class="service">
+
+${cmd.nomService}
+
+</div>
+
+<div class="info">
+
+📂 <b>Catégorie :</b> ${cmd.categorie}
+
+</div>
+
+<div class="info">
+
+💰 <b>Montant :</b>
+${Number(cmd.montant||0).toLocaleString("fr-FR")} Ar
+
+</div>
+
+<div class="info">
+
+📅 <b>Date :</b>
+${new Date(cmd.dateCommande).toLocaleString("fr-FR")}
+
+</div>
+
+<div class="info">
+
+📝 <b>Observation :</b><br>
+
+${cmd.observation||"Aucune observation."}
+
+</div>
+
+<div class="badge ${classe}">
+
+${cmd.statut}
+
+</div>
+
+<div class="actions">
+
+<button
+class="btn detail"
+onclick="voirCommande('${cmd.id}')">
+
+📄 Voir le détail
+
+</button>
+
+<button
+class="btn contact"
+onclick="window.location='contact.html'">
+
+💬 Contacter Madawork
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function voirCommande(id){
+
+window.location=
+"commande.html?id="+id;
+
+}
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Curriculum Vitae - Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+padding:20px;
+color:#222;
+}
+
+.container{
+max-width:950px;
+margin:auto;
+}
+
+.retour{
+display:block;
+width:100%;
+padding:14px;
+margin-bottom:15px;
+background:#eef2fb;
+color:#17438f;
+text-decoration:none;
+text-align:center;
+font-weight:bold;
+border-radius:12px;
+}
+
+.actions{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:10px;
+margin-bottom:20px;
+}
+
+.btn{
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:15px;
+font-weight:700;
+color:white;
+cursor:pointer;
+}
+
+.pdf{
+background:#d93025;
+}
+
+.print{
+background:#00b050;
+}
+
+.share{
+background:#1f5fc3;
+}
+
+.cv{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.headerCV{
+background:linear-gradient(135deg,#17438f,#1f5fc3);
+color:white;
+padding:30px;
+display:flex;
+align-items:center;
+gap:25px;
+}
+
+.photo{
+width:160px;
+height:160px;
+border-radius:50%;
+border:5px solid white;
+object-fit:cover;
+background:white;
+}
+
+.identite{
+flex:1;
+}
+
+.nom{
+font-size:34px;
+font-weight:700;
+margin-bottom:8px;
+}
+
+.metier{
+font-size:21px;
+opacity:.95;
+}
+
+.coordonnees{
+margin-top:18px;
+line-height:1.9;
+font-size:15px;
+}
+
+.bodyCV{
+padding:25px;
+}
+
+.section{
+margin-top:20px;
+margin-bottom:10px;
+background:#17438f;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+font-weight:700;
+font-size:17px;
+}
+
+.contenu{
+line-height:1.9;
+white-space:pre-line;
+}
+
+.footerCV{
+margin-top:30px;
+padding-top:20px;
+border-top:1px solid #ddd;
+text-align:center;
+font-size:13px;
+color:#666;
+}
+
+.logoMini{
+width:80px;
+margin-bottom:10px;
+}
+
+@media(max-width:700px){
+
+.headerCV{
+
+flex-direction:column;
+text-align:center;
+
+}
+
+.photo{
+
+width:130px;
+height:130px;
+
+}
+
+.nom{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<a id="retourProfil" href="#" class="retour">
+⬅ Retour au profil
+</a>
+
+⬅ Retour au profil
+
+</a>
+
+<div class="actions">
+
+<button
+class="btn pdf"
+onclick="telechargerPDF()">
+
+📄 Télécharger gratuitement
+
+</button>
+
+<button
+class="btn print"
+onclick="window.print()">
+
+🖨️ Imprimer
+
+</button>
+
+<button
+class="btn share"
+onclick="partagerCV()">
+
+📤 Partager
+
+</button>
+
+</div>
+
+<div
+id="cv"
+class="cv">
+
+<div class="headerCV">
+
+<img
+id="photo"
+src="profil.png"
+class="photo">
+
+<div class="identite">
+
+<div
+id="nomComplet"
+class="nom">
+
+Chargement...
+
+</div>
+
+<div
+id="titreProfil"
+class="metier">
+
+Chargement...
+
+</div>
+
+<div
+id="coordonnees"
+class="coordonnees">
+
+Chargement...
+
+</div>
+
+</div>
+
+</div>
+
+<div class="bodyCV">
+<div class="section">
+
+📝 Présentation professionnelle
+
+</div>
+
+<div
+id="presentation"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+💼 Expérience professionnelle
+
+</div>
+
+<div
+id="experience"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+🎓 Études et Formation
+
+</div>
+
+<div
+id="formation"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+🌍 Langues
+
+</div>
+
+<div
+id="langues"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+💻 Connaissances informatiques
+
+</div>
+
+<div
+id="informatique"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+🎯 Centres d'intérêt
+
+</div>
+
+<div
+id="centreInteret"
+class="contenu">
+
+Chargement...
+
+</div>
+
+<div class="section">
+
+📋 Informations complémentaires
+
+</div>
+
+<div class="contenu">
+
+<b>📍 Ville :</b>
+<span id="ville">Chargement...</span>
+
+<br><br>
+
+<b>📞 Téléphone :</b>
+<span id="telephone">Chargement...</span>
+
+<br><br>
+
+<b>📧 Email :</b>
+<span id="email">Chargement...</span>
+
+<br><br>
+
+<b>🕒 Disponibilité :</b>
+<span id="disponibilite">Chargement...</span>
+
+<br><br>
+
+<b>💰 Prétention salariale :</b>
+<span id="pretentionSalariale">Chargement...</span>
+
+</div>
+
+<div class="section">
+
+📜 Déclaration sur l'honneur
+
+</div>
+
+<div class="contenu">
+
+Je soussigné(e), certifie sur l'honneur que les informations figurant dans le présent Curriculum Vitae sont exactes et sincères.
+
+<br><br>
+
+Disponible immédiatement pour tout entretien ou toute prise de fonction selon les besoins de l'entreprise.
+
+<br><br>
+
+Fait à : ____________________________
+
+<br><br>
+
+Le : _______________________________
+
+<br><br>
+
+Signature :
+
+<br><br><br>
+
+____________________________________
+
+</div>
+
+<div class="footerCV">
+
+<img
+src="logomadw.png"
+class="logoMini">
+
+<br>
+
+<b>CURRICULUM VITAE</b>
+
+<br><br>
+
+Généré automatiquement via la plateforme
+
+<b>Madawork.com</b>
+
+<br>
+
+www.madawork.com
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+window.onload = function(){
+
+  chargerCV();
+
+  if(new URLSearchParams(window.location.search).get("pdf")=="1"){
+
+    setTimeout(function(){
+
+      telechargerPDF();
+
+    },1000);
+
+  }
+
+};
+
+async function chargerCV(){
+
+const profilId = new URLSearchParams(window.location.search).get("id");
+alert(profilId);
+document.getElementById("retourProfil").href = "profil.html?id=" + profilId;
+
+if(!profilId){
+alert("Profil introuvable");
+return;
+}
+
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+action:"getProfil",
+profilId:profilId
+})
+
+});
+
+const result=await response.json();
+alert(JSON.stringify(result));
+if(!result.success){
+
+alert(result.message);
+
+return;
+
+}
+
+const p=result.profil;
+
+document.getElementById("photo").src=p.photo||"profil.png";
+
+document.getElementById("nomComplet").textContent=p.nomComplet||"";
+
+document.getElementById("titreProfil").textContent=p.titreProfil||"";
+
+document.getElementById("coordonnees").innerHTML=
+
+"📍 "+(p.ville||"-")+
+
+"<br>📞 "+(p.telephone||"-")+
+
+"<br>📧 "+(p.email||"-");
+
+document.getElementById("presentation").innerHTML=(p.presentation||"").replace(/\n/g,"<br>");
+
+document.getElementById("experience").innerHTML=(p.experience||"").replace(/\n/g,"<br>");
+
+document.getElementById("formation").innerHTML=(p.formation||"").replace(/\n/g,"<br>");
+
+document.getElementById("langues").innerHTML=(p.langues||"").replace(/\n/g,"<br>");
+
+document.getElementById("informatique").innerHTML=(p.informatique||"").replace(/\n/g,"<br>");
+
+document.getElementById("centreInteret").innerHTML=(p.centreInteret||"").replace(/\n/g,"<br>");
+
+document.getElementById("ville").textContent=p.ville||"-";
+
+document.getElementById("telephone").textContent=p.telephone||"-";
+
+document.getElementById("email").textContent=p.email||"-";
+
+document.getElementById("disponibilite").textContent=p.disponibilite||"-";
+
+document.getElementById("pretentionSalariale").textContent=p.pretentionSalariale||"-";
+
+}catch(err){
+
+console.error(err);
+
+alert("Impossible de charger le CV.");
+
+}
+
+}
+function telechargerPDF(){
+
+const element=document.getElementById("cv");
+
+html2pdf().set({
+
+margin:8,
+
+filename:"CV_"+document.getElementById("nomComplet").innerText+".pdf",
+
+image:{
+type:"jpeg",
+quality:1
+},
+
+html2canvas:{
+scale:2,
+useCORS:true
+},
+
+jsPDF:{
+unit:"mm",
+format:"a4",
+orientation:"portrait"
+}
+
+}).from(element).save();
+
+}
+
+function partagerCV(){
+
+if(navigator.share){
+
+navigator.share({
+
+title:"Mon Curriculum Vitae",
+
+text:"Découvrez mon CV généré automatiquement via Madawork.com",
+
+url:window.location.href
+
+});
+
+}else{
+
+navigator.clipboard.writeText(window.location.href);
+
+alert("Lien du CV copié.");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>

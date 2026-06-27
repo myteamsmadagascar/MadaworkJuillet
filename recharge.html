@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Recharge - Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f7fc;
+padding:15px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.logo{
+display:block;
+margin:auto;
+width:220px;
+max-width:90%;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.titre{
+font-size:22px;
+font-weight:bold;
+color:#1f5fc3;
+margin-bottom:15px;
+text-align:center;
+}
+
+.sousTitre{
+font-size:18px;
+font-weight:bold;
+color:#1f5fc3;
+margin-bottom:10px;
+}
+
+.retour{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#eef2fb;
+color:#1f5fc3;
+font-weight:bold;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:12px;
+margin-bottom:12px;
+font-size:15px;
+}
+
+textarea{
+height:100px;
+resize:none;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1f5fc3;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.infoPaiement{
+background:#eef6ff;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+line-height:1.8;
+}
+
+.resume{
+background:#fff8e1;
+padding:15px;
+border-radius:12px;
+margin-top:10px;
+line-height:1.8;
+}
+
+.ligne{
+padding:12px;
+border:1px solid #ddd;
+border-radius:12px;
+margin-bottom:10px;
+}
+
+.attente{
+color:#ff9800;
+font-weight:bold;
+}
+
+.validee{
+color:#00b050;
+font-weight:bold;
+}
+
+.refusee{
+color:#e53935;
+font-weight:bold;
+}
+
+.message{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.success{
+color:#00b050;
+}
+
+.error{
+color:#e53935;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<button
+class="retour"
+onclick="window.location='dashboard.html'">
+⬅ Retour
+</button>
+
+<img
+src="logomadw.png"
+class="logo"
+onclick="window.location='index.html'">
+
+<div class="card">
+
+<div class="titre">
+Recharger mon compte
+</div>
+
+<select
+id="modePaiement"
+onchange="changerMode()">
+
+<option value="">
+Choisir un mode de paiement
+</option>
+
+<option value="MVOLA">
+MVola
+</option>
+
+<option value="AIRTEL">
+Airtel Money
+</option>
+
+<option value="ORANGE">
+Orange Money
+</option>
+
+<option value="CARTE">
+Carte Bancaire
+</option>
+
+</select>
+
+<div
+id="infosPaiement"
+class="infoPaiement"
+style="display:none;">
+</div>
+
+<input
+type="number"
+id="montant"
+placeholder="Montant en Ariary"
+oninput="calculer()">
+
+<input
+id="reference"
+placeholder="Référence transaction">
+
+<textarea
+id="observation"
+placeholder="Observation (facultatif)">
+</textarea>
+
+<div
+id="resume"
+class="resume"
+style="display:none;">
+</div>
+
+<button
+class="btn"
+onclick="envoyerRecharge()">
+Envoyer la demande
+</button>
+
+<div
+id="message"
+class="message">
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="sousTitre">
+Résumé de la recharge
+</div>
+
+<div id="resumeGlobal">
+
+Aucune recharge en cours.
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="sousTitre">
+Historique des recharges
+</div>
+
+<div id="historique">
+
+Chargement...
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+function changerMode(){
+
+const mode =
+document.getElementById("modePaiement").value;
+
+const bloc =
+document.getElementById("infosPaiement");
+
+bloc.style.display="block";
+
+if(mode==="MVOLA"){
+
+bloc.innerHTML=
+"<b>MVola</b><br>034 19 191 34<br>Titulaire : Finiavana Naomi-NISI";
+
+}
+
+else if(mode==="AIRTEL"){
+
+bloc.innerHTML=
+"<b>Airtel Money</b><br>033 29 430 07<br>Titulaire : Finiavana Naomi-NISI";
+
+}
+
+else if(mode==="ORANGE"){
+
+bloc.innerHTML=
+"<b>Orange Money</b><br>032 60 964 49<br>Titulaire : Finiavana Naomi-NISI";
+
+}
+
+else if(mode==="CARTE"){
+
+bloc.innerHTML=
+'<a href="https://buy.stripe.com/14A4gA3Oe5DecbG7NUawo01?locale=fr&__embed_source=buy_btn_1TUcFtLwve9FxvvUEygftFXq" target="_blank" class="btn" style="display:block;text-decoration:none;text-align:center;">Payer par carte bancaire</a>';
+
+}else{
+
+bloc.style.display="none";
+
+}
+
+calculer();
+
+}
+
+function calculer(){
+
+const montant =
+document.getElementById("montant").value;
+
+const mode =
+document.getElementById("modePaiement").value;
+
+const div =
+document.getElementById("resume");
+
+if(!montant){
+
+div.style.display="none";
+return;
+
+}
+
+div.style.display="block";
+
+div.innerHTML=
+"<b>Montant :</b> "+montant+" Ar<br>"+
+"<b>Mode :</b> "+mode;
+
+document.getElementById("resumeGlobal").innerHTML=
+"<b>Recharge prévue :</b><br>"+
+montant+" Ar via "+mode;
+
+}
+
+async function envoyerRecharge(){
+
+const userId =
+localStorage.getItem("userId");
+
+const nom =
+localStorage.getItem("userNom") || "";
+
+const prenom =
+localStorage.getItem("userPrenom") || "";
+
+const montant =
+document.getElementById("montant").value;
+
+const modePaiement =
+document.getElementById("modePaiement").value;
+
+const reference =
+document.getElementById("reference").value;
+
+const msg =
+document.getElementById("message");
+
+if(!montant){
+
+msg.className="message error";
+msg.innerHTML=
+"Montant obligatoire";
+return;
+
+}
+
+if(!modePaiement){
+
+msg.className="message error";
+msg.innerHTML=
+"Mode de paiement obligatoire";
+return;
+
+}
+
+try{
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+
+action:"demandeRecharge",
+userId:userId,
+nomClient:nom + " " + prenom,
+montant:montant,
+modePaiement:modePaiement,
+reference:reference
+
+})
+});
+
+const data =
+await response.json();
+
+if(data.success){
+
+msg.className="message success";
+msg.innerHTML=
+"Demande envoyée avec succès";
+
+document.getElementById("montant").value="";
+document.getElementById("reference").value="";
+document.getElementById("observation").value="";
+
+chargerHistorique();
+
+}else{
+
+msg.className="message error";
+msg.innerHTML=
+data.message;
+
+}
+
+}catch(err){
+
+msg.className="message error";
+msg.innerHTML=
+"Erreur de connexion";
+
+console.log(err);
+
+}
+
+}
+
+async function chargerHistorique(){
+
+const userId =
+localStorage.getItem("userId");
+
+const div =
+document.getElementById("historique");
+
+try{
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+action:"getRecharges"
+})
+});
+
+const data =
+await response.json();
+
+if(!data.success){
+
+div.innerHTML =
+"Impossible de charger l'historique";
+return;
+
+}
+
+const mesRecharges =
+data.recharges.filter(r =>
+String(r.userId) === String(userId)
+);
+
+if(mesRecharges.length===0){
+
+div.innerHTML =
+"Aucune recharge enregistrée.";
+return;
+
+}
+
+let html="";
+
+mesRecharges.reverse().forEach(r=>{
+
+let classe="attente";
+
+if(r.statut==="VALIDE"){
+classe="validee";
+}
+
+if(r.statut==="REFUSE"){
+classe="refusee";
+}
+
+html += `
+
+<div class="ligne"><b>${r.montant} Ar</b><br>
+
+Référence : ${r.reference}<br>
+
+Mode : ${r.modePaiement}<br>
+
+<span class="${classe}">
+${r.statut}
+</span></div>
+`;});
+
+div.innerHTML = html;
+
+const derniere =
+mesRecharges[mesRecharges.length-1];
+
+document.getElementById("resumeGlobal")
+.innerHTML =
+
+"<b>Dernière recharge</b><br>" +
+
+"Montant : " +
+derniere.montant +
+" Ar<br>" +
+
+"Mode : " +
+derniere.modePaiement +
+"<br>" +
+
+"Statut : " +
+derniere.statut;
+
+}catch(err){
+
+div.innerHTML =
+"Erreur de chargement";
+
+}
+
+}
+
+chargerHistorique();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Demande de Badge | Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f4f6fb;
+color:#222;
+}
+
+.header{
+background:white;
+padding:20px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo{
+width:220px;
+max-width:90%;
+}
+
+.retour{
+display:block;
+max-width:1100px;
+margin:20px auto;
+padding:14px;
+background:#1f5fc3;
+color:white;
+text-decoration:none;
+text-align:center;
+border-radius:12px;
+font-weight:700;
+}
+
+.container{
+max-width:1100px;
+margin:auto;
+padding:15px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+h1{
+text-align:center;
+color:#17438f;
+margin-bottom:10px;
+font-size:34px;
+}
+
+.sousTitre{
+text-align:center;
+color:#666;
+line-height:1.8;
+margin-bottom:30px;
+}
+
+.grille{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:18px;
+margin-bottom:30px;
+}
+
+.badgeCard{
+background:white;
+border:3px solid #e8e8e8;
+border-radius:18px;
+padding:20px;
+cursor:pointer;
+transition:.25s;
+}
+
+.badgeCard:hover{
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0,0,0,.10);
+}
+
+.badgeCard.active{
+border-color:#1f5fc3;
+background:#eef5ff;
+}
+
+.badgeIcon{
+font-size:50px;
+text-align:center;
+margin-bottom:12px;
+}
+
+.badgeTitre{
+font-size:22px;
+font-weight:700;
+text-align:center;
+color:#17438f;
+}
+
+.badgePrix{
+font-size:24px;
+font-weight:800;
+text-align:center;
+margin:12px 0;
+color:#00b050;
+}
+
+.badgeTexte{
+font-size:14px;
+line-height:1.8;
+color:#555;
+text-align:center;
+}
+
+.formulaire{
+
+margin-top:25px;
+
+}
+
+label{
+
+display:block;
+margin-top:18px;
+margin-bottom:8px;
+font-weight:700;
+
+}
+
+textarea{
+
+width:100%;
+min-height:220px;
+padding:15px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+resize:vertical;
+
+}
+
+.infoPrix{
+
+margin-top:20px;
+padding:18px;
+background:#eef7ff;
+border-radius:14px;
+font-size:18px;
+font-weight:700;
+text-align:center;
+color:#17438f;
+
+}
+
+.btn{
+
+width:100%;
+margin-top:25px;
+padding:16px;
+border:none;
+border-radius:12px;
+background:#00b050;
+color:white;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+
+}
+
+.btn:hover{
+
+background:#009444;
+
+}
+
+.note{
+
+margin-top:25px;
+padding:20px;
+background:#fff8dc;
+border-radius:14px;
+line-height:1.9;
+font-size:14px;
+color:#8a6500;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="dashboard.html">
+
+<img src="logomadw.png" class="logo">
+
+</a>
+
+</div>
+
+<a href="dashboard.html" class="retour">
+
+⬅ Retour au tableau de bord
+
+</a>
+
+<div class="container">
+
+<div class="card">
+
+<h1>🏅 Demande de badge</h1>
+
+<div class="sousTitre">
+
+Valorisez votre profil professionnel sur <b>Madawork.com</b>.<br>
+
+Chaque demande est étudiée par notre équipe avant validation.
+
+</div>
+
+<div class="grille">
+
+<div class="badgeCard" onclick="choisirBadge('VERIFIE',5000,this)">
+
+<div class="badgeIcon">🔵</div>
+
+<div class="badgeTitre">Badge Vérifié</div>
+
+<div class="badgePrix">5 000 Ar</div>
+
+<div class="badgeTexte">
+
+Profil vérifié par Madawork.<br>
+
+Plus de confiance auprès des recruteurs.
+
+</div>
+
+</div>
+
+<div class="badgeCard" onclick="choisirBadge('PREMIUM',10000,this)">
+
+<div class="badgeIcon">🟠</div>
+
+<div class="badgeTitre">Badge Premium</div>
+
+<div class="badgePrix">10 000 Ar</div>
+
+<div class="badgeTexte">
+
+Profil mis en avant.<br>
+
+Meilleure visibilité dans les recherches.
+
+</div>
+
+</div>
+
+<div class="badgeCard" onclick="choisirBadge('EXPERT',20000,this)">
+
+<div class="badgeIcon">🔴</div>
+
+<div class="badgeTitre">Badge Expert</div>
+
+<div class="badgePrix">20 000 Ar</div>
+
+<div class="badgeTexte">
+
+Compétences reconnues.<br>
+
+Profil hautement qualifié.
+
+</div>
+
+</div>
+
+<div class="badgeCard" onclick="choisirBadge('TOP_TALENT',50000,this)">
+
+<div class="badgeIcon">🥇</div>
+
+<div class="badgeTitre">Top Talent</div>
+
+<div class="badgePrix">50 000 Ar</div>
+
+<div class="badgeTexte">
+
+Distinction exceptionnelle attribuée par Madawork.
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="formulaire">
+
+<label>
+
+Motif de votre demande
+
+</label>
+
+<textarea
+id="motivation"
+placeholder="Nom complet :
+
+Téléphone :
+
+Années d'expérience :
+
+Entreprise actuelle (si applicable) :
+
+Expliquez pourquoi vous pensez mériter ce badge.
+
+Mentionnez également vos compétences, réalisations, formations, certifications ou toute information utile à l'étude de votre demande."></textarea>
+
+<div
+id="infoPrix"
+class="infoPrix">
+
+Veuillez sélectionner un badge ci-dessus.
+
+</div>
+
+<button
+class="btn"
+onclick="envoyerDemande()">
+
+🏅 Envoyer ma demande
+
+</button>
+
+<div class="note">
+
+<b>Informations importantes</b>
+
+<br><br>
+
+• Le montant correspondant au badge sera débité immédiatement de votre portefeuille Madawork.
+
+<br><br>
+
+• Votre demande sera enregistrée dans la plateforme puis étudiée par notre équipe.
+
+<br><br>
+
+• Après étude, Madawork pourra :
+
+<br>✅ Valider le badge demandé.
+
+<br>🔄 Vous proposer un badge plus adapté.
+
+<br>📄 Vous demander des documents complémentaires.
+
+<br>🎓 Vous demander une formation.
+
+<br>❌ Refuser la demande si les critères ne sont pas remplis.
+
+<br><br>
+
+Le statut de votre demande pourra être consulté ultérieurement depuis votre espace personnel.
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let badgeChoisi="";
+let prixBadge=0;
+
+function choisirBadge(badge,prix,element){
+
+document
+.querySelectorAll(".badgeCard")
+.forEach(c=>c.classList.remove("active"));
+
+element.classList.add("active");
+
+badgeChoisi=badge;
+
+prixBadge=prix;
+
+document.getElementById("infoPrix").innerHTML=
+
+"<b>Badge sélectionné :</b> "+badge.replace("_"," ")
+
++"<br><br><b>Montant :</b> "
+
++prix.toLocaleString("fr-FR")
+
++" Ar";
+
+}
+async function envoyerDemande(){
+
+const userId = localStorage.getItem("userId");
+
+if(!userId){
+
+alert("Veuillez vous connecter.");
+
+return;
+
+}
+
+if(badgeChoisi==""){
+
+alert("Veuillez sélectionner un badge.");
+
+return;
+
+}
+
+const motivation=document
+.getElementById("motivation")
+.value
+.trim();
+
+if(motivation==""){
+
+alert("Veuillez compléter votre demande.");
+
+return;
+
+}
+
+if(!confirm(
+
+"Confirmez-vous votre demande du badge "
+
++badgeChoisi.replace("_"," ")
+
++" ?\n\n"
+
++"Le montant de "
+
++prixBadge.toLocaleString("fr-FR")
+
++" Ar sera débité de votre portefeuille."
+
+)){
+
+return;
+
+}
+
+try{
+
+const rep=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"demandeBadge",
+
+userId:userId,
+
+badge:badgeChoisi,
+
+motivation:motivation
+
+})
+
+});
+
+const data=await rep.json();
+
+alert(data.message);
+
+if(data.success){
+
+document
+.getElementById("motivation")
+.value="";
+
+badgeChoisi="";
+
+prixBadge=0;
+
+document
+.querySelectorAll(".badgeCard")
+.forEach(c=>c.classList.remove("active"));
+
+document
+.getElementById("infoPrix")
+.innerHTML="Veuillez sélectionner un badge ci-dessus.";
+
+setTimeout(function(){
+
+window.location.href="dashboard.html";
+
+},800);
+
+}
+
+}catch(err){
+
+console.error(err);
+
+alert("Impossible d'envoyer votre demande.");
+
+}
+
+}
+</script>
+
+</body>
+
+</html>

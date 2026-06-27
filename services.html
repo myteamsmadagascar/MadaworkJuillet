@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Services | Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+color:#222;
+}
+
+.header{
+background:white;
+padding:20px;
+text-align:center;
+box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+width:220px;
+max-width:90%;
+cursor:pointer;
+}
+
+.retour{
+display:block;
+max-width:1100px;
+margin:20px auto;
+padding:15px;
+background:#17438f;
+color:white;
+text-decoration:none;
+text-align:center;
+font-weight:700;
+border-radius:14px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:15px;
+}
+
+.titre{
+font-size:34px;
+font-weight:800;
+color:#17438f;
+text-align:center;
+margin-bottom:10px;
+}
+
+.sousTitre{
+text-align:center;
+color:#666;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+.recherche{
+
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:14px;
+font-size:16px;
+margin-bottom:18px;
+
+}
+
+.categorie{
+
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+border-radius:14px;
+font-size:16px;
+margin-bottom:25px;
+
+}
+
+.grille{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+
+}
+
+.service{
+
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.poster{
+
+width:100%;
+height:220px;
+object-fit:cover;
+background:#f2f2f2;
+
+}
+
+.contenu{
+
+padding:18px;
+
+}
+
+.nom{
+
+font-size:24px;
+font-weight:800;
+color:#17438f;
+margin-bottom:10px;
+
+}
+
+.cat{
+
+display:inline-block;
+background:#eef5ff;
+color:#17438f;
+padding:6px 12px;
+border-radius:30px;
+font-size:13px;
+font-weight:700;
+margin-bottom:15px;
+
+}
+
+.description{
+
+color:#666;
+line-height:1.7;
+height:90px;
+overflow:hidden;
+margin-bottom:18px;
+
+}
+
+.prix{
+
+font-size:28px;
+font-weight:800;
+color:#00b050;
+margin-bottom:18px;
+
+}
+
+.actions{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+
+}
+
+.btn{
+
+padding:14px;
+border:none;
+border-radius:12px;
+font-size:15px;
+font-weight:700;
+cursor:pointer;
+color:white;
+
+}
+
+.voir{
+
+background:#17438f;
+
+}
+
+.commander{
+
+background:#00b050;
+
+}
+
+.vide{
+
+text-align:center;
+padding:50px;
+background:white;
+border-radius:20px;
+display:none;
+
+}
+
+@media(max-width:700px){
+
+.actions{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="dashboard.html">
+
+<img
+src="logomadw.png"
+class="logo">
+
+</a>
+
+</div>
+
+<a
+href="dashboard.html"
+class="retour">
+
+ Retour au tableau de bord
+
+</a>
+
+<div class="container">
+
+<div class="titre">
+
+ Services Madawork
+
+</div>
+
+<div class="sousTitre">
+
+Commandez directement les prestations proposées par Madawork.com.
+
+</div>
+
+<input
+id="recherche"
+class="recherche"
+type="text"
+placeholder=" Rechercher un service...">
+
+<select
+id="categorie"
+class="categorie">
+
+<option value="">Toutes les catégories</option>
+
+</select>
+
+<div
+id="grille"
+class="grille">
+
+</div>
+
+<div
+id="vide"
+class="vide">
+
+Aucun service disponible.
+
+</div>
+</div>
+
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let services=[];
+
+window.onload=function(){
+
+chargerServices();
+
+document
+.getElementById("recherche")
+.addEventListener("input",filtrer);
+
+document
+.getElementById("categorie")
+.addEventListener("change",filtrer);
+
+};
+
+async function chargerServices(){
+
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"getServices"
+
+})
+
+});
+
+const result=await response.json();
+
+if(result.success){
+
+services=result.services||[];
+
+const select=
+document.getElementById("categorie");
+
+const categories=[];
+
+services.forEach(s=>{
+
+if(
+s.categorie &&
+!categories.includes(s.categorie)
+){
+
+categories.push(s.categorie);
+
+const option=
+document.createElement("option");
+
+option.value=s.categorie;
+
+option.textContent=s.categorie;
+
+select.appendChild(option);
+
+}
+
+});
+
+afficherServices(services);
+
+}else{
+
+document.getElementById("vide").style.display="block";
+
+}
+
+}catch(err){
+
+console.log(err);
+
+alert("Impossible de charger les services.");
+
+}
+
+}
+
+function filtrer(){
+
+const mot=
+document
+.getElementById("recherche")
+.value
+.toLowerCase();
+
+const cat=
+document
+.getElementById("categorie")
+.value;
+
+const liste=services.filter(s=>{
+
+const okTexte=
+
+s.titre.toLowerCase().includes(mot) ||
+
+s.description.toLowerCase().includes(mot);
+
+const okCat=
+
+cat=="" ||
+
+s.categorie===cat;
+
+return okTexte && okCat;
+
+});
+
+afficherServices(liste);
+
+}
+function afficherServices(liste){
+
+const grille=document.getElementById("grille");
+const vide=document.getElementById("vide");
+
+grille.innerHTML="";
+
+if(liste.length===0){
+
+vide.style.display="block";
+
+return;
+
+}
+
+vide.style.display="none";
+
+liste.forEach(service=>{
+
+grille.innerHTML+=`
+
+<div class="service">
+
+<img
+class="poster"
+src="${service.image || 'logomadw.png'}">
+
+<div class="contenu">
+
+<div class="nom">
+
+${service.titre}
+
+</div>
+
+<div class="cat">
+
+${service.categorie}
+
+</div>
+
+<div class="description">
+
+${service.description}
+
+</div>
+
+<div class="prix">
+
+${Number(service.prix||0).toLocaleString("fr-FR")} Ar
+
+</div>
+
+<div class="actions">
+
+
+<button
+class="btn commander"
+onclick="commanderService('${service.id}','${service.titre.replace(/'/g,"\\'")}',${service.prix})">
+
+ Commander
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function voirService(id){
+
+window.location=
+"service-details.html?id="+id;
+
+}
+
+async function commanderService(id,titre,prix){
+
+const ok = confirm(
+"Madawork.com\n\n"+
+"Confirmation de votre commande\n\n"+
+"Service : "+titre+"\n"+
+"Prix : "+Number(prix).toLocaleString("fr-FR")+" Ar\n\n"+
+"Le montant sera débité immédiatement de votre crédit Madawork.com.\n\n"+
+" Appuyez sur OK pour accepter.\n"+
+" Utilisez le bouton Retour de votre téléphone pour annuler."
+);
+
+if(!ok){
+  return;
+}
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"commanderService",
+
+userId:localStorage.getItem("userId"),
+
+serviceId:id
+
+})
+
+});
+
+const result=await response.json();
+
+if(result.success){
+
+if(result.success){
+
+const ok = confirm(
+" Votre commande a été enregistrée avec succès.\n\n" +
+"Souhaitez-vous maintenant décrire votre besoin et envoyer les documents nécessaires ?"
+);
+
+if(ok){
+
+window.location =
+"contact.html?commandeId=" +
+result.commandeId +
+"&serviceId=" +
+id;
+
+}else{
+
+window.location =
+"mescommandes.html";
+
+}
+
+}else{
+
+alert(result.message);
+
+}
+
+}else{
+
+alert(result.message);
+
+}
+
+}catch(err){
+
+console.log(err);
+
+alert("Erreur de connexion.");
+
+}
+
+}
+
+
+</script>
+
+</body>
+
+</html>

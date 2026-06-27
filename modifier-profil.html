@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Modifier mon profil - Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+color:#222;
+}
+
+.header{
+background:white;
+padding:20px;
+text-align:center;
+box-shadow:0 2px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+width:230px;
+max-width:90%;
+}
+
+.container{
+max-width:950px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.titre{
+font-size:32px;
+font-weight:700;
+text-align:center;
+color:#17438f;
+margin-bottom:10px;
+}
+
+.sousTitre{
+text-align:center;
+color:#666;
+line-height:1.8;
+margin-bottom:20px;
+}
+
+.section{
+margin-top:25px;
+margin-bottom:15px;
+background:linear-gradient(90deg,#17438f,#1f5fc3);
+color:white;
+padding:12px 18px;
+border-radius:12px;
+font-size:18px;
+font-weight:700;
+}
+
+label{
+display:block;
+margin-top:12px;
+margin-bottom:6px;
+font-weight:600;
+}
+
+.input,
+.textarea{
+width:100%;
+padding:14px;
+border:1px solid #d9d9d9;
+border-radius:12px;
+font-size:15px;
+}
+
+.textarea{
+resize:vertical;
+min-height:120px;
+}
+
+.photoBox{
+text-align:center;
+margin:20px 0;
+}
+
+.photo{
+width:170px;
+height:170px;
+border-radius:50%;
+border:5px solid #17438f;
+object-fit:cover;
+background:#f5f5f5;
+display:block;
+margin:auto;
+}
+
+.upload{
+margin-top:15px;
+}
+
+.btn{
+width:100%;
+padding:16px;
+margin-top:25px;
+border:none;
+border-radius:14px;
+background:#1f5fc3;
+color:white;
+font-size:17px;
+font-weight:700;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="profil.html">
+
+<img
+src="logomadw.png"
+class="logo">
+
+</a>
+
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<div class="titre">
+
+Modifier mon profil
+
+</div>
+
+<div class="sousTitre">
+
+Toutes les informations seront automatiquement chargées depuis votre profil actuel.
+
+</div>
+
+<div class="photoBox">
+
+<img
+id="photoPreview"
+class="photo"
+src="profil.png">
+
+<input
+type="file"
+id="photo"
+class="upload"
+accept="image/*">
+
+</div>
+
+<div class="section">
+
+👤 Informations personnelles
+
+</div>
+
+<label>Nom complet</label>
+
+<input
+type="text"
+id="nomComplet"
+class="input">
+
+<label>Ville</label>
+
+<input
+type="text"
+id="ville"
+class="input">
+
+<label>CIN</label>
+
+<input
+type="text"
+id="cin"
+class="input">
+
+<label>Téléphone</label>
+
+<input
+type="tel"
+id="telephone"
+class="input">
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+class="input">
+<div class="section">
+
+💼 Informations professionnelles
+
+</div>
+
+<label>Titre du profil</label>
+
+<input
+type="text"
+id="titreProfil"
+class="input">
+
+<label>Catégorie</label>
+
+<input
+type="text"
+id="categorie"
+class="input"
+list="listeCategories">
+
+<datalist id="listeCategories">
+
+<option value="Assistant virtuel">
+<option value="Service client">
+<option value="Téléprospection">
+<option value="Commercial">
+<option value="Administration">
+<option value="Comptabilité">
+<option value="Finance">
+<option value="Marketing">
+<option value="Community Management">
+<option value="Graphiste">
+<option value="Développeur Web">
+<option value="Développeur Mobile">
+<option value="Designer UI/UX">
+<option value="Ressources Humaines">
+<option value="Juriste">
+<option value="Enseignant">
+<option value="Infirmier">
+<option value="Médecin">
+<option value="Chauffeur">
+
+</datalist>
+
+<label>Domaine</label>
+
+<input
+type="text"
+id="domaine"
+class="input">
+
+<label>Disponibilité</label>
+
+<input
+type="text"
+id="disponibilite"
+class="input">
+
+<label>Prétention salariale</label>
+
+<input
+type="text"
+id="pretentionSalariale"
+class="input">
+
+<div class="section">
+
+📝 Présentation professionnelle
+
+</div>
+
+<textarea
+id="presentation"
+class="textarea">
+
+</textarea>
+
+<div class="section">
+
+💼 Expérience professionnelle
+
+</div>
+
+<textarea
+id="experience"
+class="textarea">
+
+</textarea>
+
+<div class="section">
+
+🎓 Études et Formation
+
+</div>
+
+<textarea
+id="formation"
+class="textarea">
+
+</textarea>
+
+<div class="section">
+
+🌍 Langues
+
+</div>
+
+<textarea
+id="langues"
+class="textarea">
+
+</textarea>
+
+<div class="section">
+
+💻 Connaissances informatiques
+
+</div>
+
+<textarea
+id="informatique"
+class="textarea">
+
+</textarea>
+
+<div class="section">
+
+🎯 Centres d'intérêt
+
+</div>
+
+<textarea
+id="centreInteret"
+class="textarea">
+
+</textarea>
+<div class="info">
+
+Les informations ci-dessous sont automatiquement chargées depuis votre profil actuel.
+
+</div>
+
+<button
+id="btnModifier"
+class="btn"
+onclick="modifierProfil()">
+
+💾 Enregistrer les modifications
+
+</button>
+
+<div
+id="message"
+style="
+margin-top:20px;
+font-weight:bold;
+text-align:center;
+font-size:16px;
+"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let photoBase64="";
+
+window.onload=function(){
+
+chargerProfil();
+
+};
+
+document.getElementById("photo").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(ev){
+
+photoBase64=ev.target.result;
+
+document.getElementById("photoPreview").src=photoBase64;
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+async function chargerProfil(){
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+action:"getProfil",
+
+userId:localStorage.getItem("userId")
+
+})
+
+});
+
+const result=await response.json();
+
+if(!result.success){
+
+alert(result.message);
+
+return;
+
+}
+
+const p=result.profil;
+
+photoBase64=p.photo||"";
+
+photoPreview.src=p.photo||"profil.png";
+
+nomComplet.value=p.nomComplet||"";
+ville.value=p.ville||"";
+cin.value=p.cin||"";
+telephone.value=p.telephone||"";
+email.value=p.email||"";
+titreProfil.value=p.titreProfil||"";
+categorie.value=p.categorie||"";
+domaine.value=p.domaine||"";
+disponibilite.value=p.disponibilite||"";
+pretentionSalariale.value=p.pretentionSalariale||"";
+presentation.value=p.presentation||"";
+experience.value=p.experience||"";
+formation.value=p.formation||"";
+langues.value=p.langues||"";
+informatique.value=p.informatique||"";
+centreInteret.value=p.centreInteret||"";
+
+}
+async function modifierProfil(){
+
+const btn=document.getElementById("btnModifier");
+
+btn.disabled=true;
+
+btn.innerHTML="Enregistrement...";
+
+const data={
+
+action:"modifierProfil",
+
+userId:localStorage.getItem("userId"),
+
+nomComplet:nomComplet.value,
+
+ville:ville.value,
+
+photo:photoBase64,
+
+titreProfil:titreProfil.value,
+
+categorie:categorie.value,
+
+domaine:domaine.value,
+
+presentation:presentation.value,
+
+cin:cin.value,
+
+experience:experience.value,
+
+formation:formation.value,
+
+langues:langues.value,
+
+informatique:informatique.value,
+
+centreInteret:centreInteret.value,
+
+telephone:telephone.value,
+
+email:email.value,
+
+disponibilite:disponibilite.value,
+
+pretentionSalariale:pretentionSalariale.value
+
+};
+
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result=await response.json();
+
+if(result.success){
+
+message.style.color="#00b050";
+
+message.innerHTML="✅ Profil modifié avec succès.";
+
+setTimeout(function(){
+
+window.location.href="profil.html";
+
+},1000);
+
+}else{
+
+message.style.color="#d93025";
+
+message.innerHTML=result.message;
+
+}
+
+}catch(err){
+
+console.error(err);
+
+message.style.color="#d93025";
+
+message.innerHTML="Erreur de connexion au serveur.";
+
+}
+
+btn.disabled=false;
+
+btn.innerHTML="💾 Enregistrer les modifications";
+
+}
+
+</script>
+
+</body>
+
+</html>

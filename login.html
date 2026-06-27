@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Connexion - Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#1f5fc3,#0d3f8f);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:500px;
+background:white;
+border-radius:25px;
+padding:30px;
+box-shadow:0 10px 35px rgba(0,0,0,.2);
+}
+
+.logo{
+display:block;
+margin:auto;
+width:230px;
+max-width:90%;
+margin-bottom:20px;
+}
+
+h1{
+text-align:center;
+color:#1f5fc3;
+margin-bottom:20px;
+font-size:28px;
+}
+
+.btn-retour{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#eef2fb;
+color:#1f5fc3;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:15px;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+border:1px solid #d9d9d9;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+input:focus{
+border-color:#1f5fc3;
+}
+
+.btn-login{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1f5fc3;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-login:disabled{
+opacity:.7;
+}
+
+.message{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.success{
+color:#0a8f3c;
+}
+
+.error{
+color:#d40000;
+}
+
+.link{
+text-align:center;
+margin-top:20px;
+}
+
+.link a{
+text-decoration:none;
+color:#1f5fc3;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<button
+class="btn-retour"
+onclick="window.location='index.html'">
+⬅ Retour
+</button>
+
+<img
+src="logomadw.png"
+class="logo"
+alt="Madawork">
+
+<h1>Connexion</h1>
+
+<input
+id="identifiant"
+placeholder="Téléphone ou Email">
+
+<input
+type="password"
+id="motdepasse"
+placeholder="Mot de passe">
+
+<button
+class="btn-login"
+onclick="login()">
+Se connecter
+</button>
+
+<div
+id="message"
+class="message">
+</div>
+
+<div class="link">
+<a href="register.html">
+Créer un compte
+</a>
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+async function login(){
+
+const msg =
+document.getElementById("message");
+
+msg.className="message";
+msg.innerHTML="";
+
+const identifiant =
+document.getElementById("identifiant").value.trim();
+
+const motdepasse =
+document.getElementById("motdepasse").value;
+
+if(!identifiant){
+
+msg.className="message error";
+msg.innerHTML=
+"Téléphone ou email obligatoire";
+return;
+
+}
+
+if(!motdepasse){
+
+msg.className="message error";
+msg.innerHTML=
+"Mot de passe obligatoire";
+return;
+
+}
+
+const btn =
+document.querySelector(".btn-login");
+
+btn.disabled=true;
+btn.innerHTML="Connexion...";
+
+try{
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+
+action:"login",
+identifiant:identifiant,
+motdepasse:motdepasse
+
+})
+});
+
+const data =
+await response.json();
+
+if(data.success){
+
+localStorage.setItem(
+"userId",
+data.user.id
+);
+
+localStorage.setItem(
+"userNom",
+data.user.nom
+);
+
+localStorage.setItem(
+"userPrenom",
+data.user.prenom
+);
+
+msg.className="message success";
+msg.innerHTML=
+"Connexion réussie";
+
+setTimeout(()=>{
+
+window.location=
+"dashboard.html";
+
+},1000);
+
+}else{
+
+msg.className="message error";
+msg.innerHTML=
+data.message;
+
+}
+
+}catch(err){
+
+msg.className="message error";
+msg.innerHTML=
+"Erreur de connexion";
+
+console.log(err);
+
+}
+
+btn.disabled=false;
+btn.innerHTML="Se connecter";
+
+}
+
+</script>
+
+</body>
+</html>

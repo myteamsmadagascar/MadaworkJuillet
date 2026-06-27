@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Madawork.com | CV Generator Premium</title>
+
+  <!-- Police -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#17438f;
+      --secondary:#1f5fc3;
+      --success:#18b45b;
+      --danger:#d93025;
+      --background:#eef3fb;
+      --card:#ffffff;
+      --text:#222;
+      --radius:18px;
+      --shadow:0 12px 35px rgba(0,0,0,.12);
+    }
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+    body{
+      background:#eef3fb;
+      padding:20px;
+      color:#222;
+    }
+    .container{
+      max-width:1500px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:430px 1fr;
+      gap:25px;
+    }
+    .formulaire{
+      background:#fff;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:var(--shadow);
+      position:sticky;
+      top:15px;
+      height:calc(100vh - 30px);
+      overflow:auto;
+    }
+    .apercu{
+      background:#fff;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:var(--shadow);
+    }
+    .logo{
+      width:220px;
+      display:block;
+      margin:auto;
+    }
+    .photoPreview{
+      width:160px;
+      height:160px;
+      margin:20px auto;
+      border-radius:50%;
+      overflow:hidden;
+      border:4px solid var(--primary);
+      background:#f2f2f2;
+    }
+    .photoPreview img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .section{
+      margin-bottom:28px;
+    }
+    .section h2{
+      display:inline-block;
+      padding:8px 15px;
+      border:2px solid var(--primary);
+      border-radius:8px;
+      background:#f8fbff;
+      color:var(--primary);
+      font-size:16px;
+      margin-bottom:15px;
+    }
+    label{
+      display:block;
+      font-weight:600;
+      margin:10px 0 6px;
+    }
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid #d8d8d8;
+      border-radius:10px;
+      font-size:15px;
+    }
+    textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+    button{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:10px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:10px;
+      transition:.25s;
+    }
+    .btnPreview{
+      background:#17438f;
+      color:white;
+    }
+    .btnPDF{
+      background:#18b45b;
+      color:white;
+    }
+    .btnReset{
+      background:#d93025;
+      color:white;
+    }
+    button:hover{
+      opacity:.9;
+      transform:translateY(-2px);
+    }
+    #cv{
+      width:794px;
+      min-height:1123px;
+      margin:auto;
+      background:white;
+      padding:60px;
+      box-sizing:border-box;
+      box-shadow:0 4px 15px rgba(0,0,0,.08);
+    }
+    .cvHeader{
+      display:flex;
+      gap:25px;
+      align-items:flex-start;
+      padding-bottom:20px;
+      border-bottom:2px solid #ddd;
+      margin-bottom:25px;
+    }
+    .cvPhoto{
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      overflow:hidden;
+      border:2px solid #bbb;
+      background:#eee;
+      flex-shrink:0;
+    }
+    .cvPhoto img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .cvInfo{
+      flex:1;
+    }
+    .cvNom{
+      font-size:32px;
+      font-weight:800;
+      color:#222;
+    }
+    .cvMetier{
+      font-size:18px;
+      color:#555;
+      margin-top:6px;
+      font-weight:600;
+    }
+    .cvCoord{
+      margin-top:18px;
+      line-height:1.8;
+      font-size:14px;
+    }
+    .cvBloc{
+      margin-top:22px;
+    }
+    .cvTitre{
+      display:inline-block;
+      padding:6px 14px;
+      border:2px solid #17438f;
+      border-radius:8px;
+      background:#f7faff;
+      color:#17438f;
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:10px;
+      text-transform:uppercase;
+    }
+    .cvTexte{
+      font-size:14px;
+      line-height:1.8;
+      white-space:pre-line;
+    }
+    .footerCV{
+      margin-top:35px;
+      padding-top:15px;
+      border-top:1px solid #ddd;
+      text-align:right;
+      font-size:13px;
+      color:#666;
+    }
+
+    @media(max-width:1100px){
+      .container{
+        grid-template-columns:1fr;
+      }
+      .formulaire{
+        position:relative;
+        top:0;
+        height:auto;
+      }
+      #cv{
+        width:100%;
+        padding:25px;
+      }
+      .cvHeader{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+      }
+    }
+
+    @media print{
+      body{
+        background:white;
+        padding:0;
+      }
+      .formulaire{
+        display:none !important;
+      }
+      .apercu{
+        box-shadow:none;
+        padding:0;
+        margin:0;
+      }
+      #cv{
+        width:100%;
+        margin:0;
+        padding:15mm;
+        box-shadow:none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- FORMULAIRE -->
+  <div class="formulaire">
+    <a href="index.html">
+      <img src="logomadw.png" class="logo" alt="Madawork">
+    </a>
+
+    <div style="text-align:center;margin:15px 0 25px;color:#666">
+      Créez gratuitement votre Curriculum Vitae professionnel
+    </div>
+
+    <div class="photoPreview">
+      <img id="photoPreview" src="" alt="Aperçu photo">
+    </div>
+
+    <div class="section">
+      <h2>Informations personnelles</h2>
+
+      <label for="photo">Photo</label>
+      <input type="file" id="photo" accept="image/*">
+
+      <label for="nom">Nom complet *</label>
+      <input type="text" id="nom" placeholder="Ex : Jean RAKOTO">
+
+      <label for="metier">Titre du poste recherché *</label>
+      <input list="listeMetiers" id="metier" placeholder="Ex : Assistant administratif">
+      <datalist id="listeMetiers">
+        <option value="Assistant administratif">
+        <option value="Téléconseiller">
+        <option value="Commercial">
+        <option value="Comptable">
+        <option value="Développeur">
+        <option value="Chauffeur">
+        <option value="Agent polyvalent">
+        <option value="Femme de ménage">
+        <option value="Gardien">
+        <option value="Réceptionniste">
+        <option value="Serveur">
+        <option value="Agent de sécurité">
+        <option value="Magasinier">
+        <option value="Caissier">
+        <option value="Autre">
+      </datalist>
+
+      <label for="cin">CIN N°</label>
+      <input type="text" id="cin" placeholder="101 011 123 456">
+
+      <label for="dateFait">Fait le</label>
+      <input type="text" id="dateFait" placeholder="Ex : 2010 ou 12 janvier 2010">
+
+      <label for="faitA">À</label>
+      <input type="text" id="faitA" placeholder="Ex : Antananarivo">
+
+      <label for="dateDuplicata">Duplicata du</label>
+      <input type="text" id="dateDuplicata" placeholder="Écrire Néant si aucun duplicata">
+
+      <label for="telephone">Téléphone *</label>
+      <input type="text" id="telephone" placeholder="+261 34 12 345 67">
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="nom@email.com">
+
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" placeholder="Adresse complète">
+
+      <label for="ville">Ville</label>
+      <input type="text" id="ville" placeholder="Antananarivo">
+
+      <label for="pays">Pays</label>
+      <input type="text" id="pays" value="Madagascar">
+    </div>
+
+    <div class="section">
+      <h2>Profil professionnel</h2>
+      <textarea id="profil" placeholder="Présentez-vous en quelques lignes..."></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Expériences professionnelles</h2>
+      <textarea id="experience" placeholder="2023 - 2025 : Entreprise
+
+• Poste occupé
+
+• Missions réalisées"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Études et formations</h2>
+      <textarea id="formation" placeholder="2022 : Diplôme
+
+2019 : Baccalauréat"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Compétences</h2>
+      <textarea id="competences" placeholder="• Organisation
+
+• Travail d'équipe
+
+• Communication
+
+• Informatique"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Langues</h2>
+      <textarea id="langues" placeholder="Malagasy: Langue natale 
+Français: courant 
+Anglais: Intermédiaire
+Allemand : Notion "></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Centres d'intérêt</h2>
+      <textarea id="interets" placeholder="Instruments: Guitare, Piano
+
+Sport: Basket ball, natation, Pétanque 
+
+Musique: R&B, Pop , Soul ,Jazz 
+
+Religion: Catholique, Adventiste"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Informations complémentaires</h2>
+      <textarea id="infosSupp" placeholder="Prétention salariale, Disponible immédiatement"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Références( anciens employeurs)</h2>
+      <textarea id="references" placeholder="Disponibles sur demande"></textarea>
+    </div>
+
+    <div class="section">
+      <h2>Déclaration sur l'honneur</h2>
+      <textarea id="declaration">Je soussigné(e), certifie sur l'honneur que les informations figurant dans le présent Curriculum Vitae sont exactes et sincères.</textarea>
+    </div>
+
+    <button class="btnPreview" type="button" onclick="mettreAJourCV()">
+      👁️ Générer le CV
+    </button>
+
+    <button class="btnPDF" type="button" onclick="imprimerCV()">
+      📄 Télécharger le PDF
+    </button>
+
+    <button class="btnReset" type="button" onclick="reinitialiser()">
+      🗑 Réinitialiser
+    </button>
+  </div>
+
+  <!-- APERCU CV -->
+  <div class="apercu">
+    <div id="cv">
+      <div class="cvHeader">
+        <div class="cvPhoto">
+          <img id="cvPhoto" src="" alt="Photo CV">
+        </div>
+        <div class="cvInfo">
+          <div class="cvNom" id="cvNom">Nom complet</div>
+          <div class="cvMetier" id="cvMetier">Titre du poste recherché</div>
+          <div class="cvCoord">
+            <div id="cvTelephone"></div>
+            <div id="cvEmail"></div>
+            <div id="cvAdresse"></div>
+            <div id="cvVille"></div>
+            <div id="cvPays"></div>
+            <div id="cvCin"></div>
+            <div id="cvDateFait"></div>
+            <div id="cvFaitA"></div>
+            <div id="cvDuplicata"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">PROFIL PROFESSIONNEL</div>
+        <div class="cvTexte" id="cvProfil">Votre profil professionnel apparaîtra ici.</div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">EXPÉRIENCES PROFESSIONNELLES</div>
+        <div class="cvTexte" id="cvExperience"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">ÉTUDES ET FORMATIONS</div>
+        <div class="cvTexte" id="cvFormation"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">COMPÉTENCES</div>
+        <div class="cvTexte" id="cvCompetences"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">LANGUES</div>
+        <div class="cvTexte" id="cvLangues"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">CENTRES D'INTÉRÊT</div>
+        <div class="cvTexte" id="cvInterets"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">INFORMATIONS COMPLÉMENTAIRES</div>
+        <div class="cvTexte" id="cvInfosSupp"></div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">RÉFÉRENCES</div>
+        <div class="cvTexte" id="cvReferences">Disponibles sur demande.</div>
+      </div>
+
+      <div class="cvBloc">
+        <div class="cvTitre">DÉCLARATION SUR L'HONNEUR</div>
+        <div class="cvTexte" id="cvDeclaration">
+          <span id="cvDeclarationTexte">
+            Je soussigné(e), certifie sur l'honneur que les informations figurant dans le présent Curriculum Vitae sont exactes et sincères.
+          </span>
+          <br><br><br>
+          Signature :
+        </div>
+      </div>
+
+      <div class="footerCV">
+        CV généré avec <b>Madawork.com</b>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const photo = document.getElementById("photo");
+
+  photo.addEventListener("change", function(e){
+    const fichier = e.target.files[0];
+    if(!fichier) return;
+
+    const lecteur = new FileReader();
+    lecteur.onload = function(event){
+      document.getElementById("photoPreview").src = event.target.result;
+      document.getElementById("cvPhoto").src = event.target.result;
+    };
+    lecteur.readAsDataURL(fichier);
+  });
+
+  function convertirTexte(texte){
+    if(!texte) return "";
+    return texte
+      .trim()
+      .replace(/\n/g,"<br>")
+      .replace(/•/g,"&#8226; ");
+  }
+
+  function id(n){
+    return document.getElementById(n);
+  }
+
+  function setTextIfNotEmpty(targetId, prefix, value){
+    const el = id(targetId);
+    if(!el) return;
+    if(value && value.trim() !== ""){
+      el.textContent = (prefix || "") + value;
+    } else {
+      el.textContent = "";
+    }
+  }
+
+  function mettreAJourCV(){
+    id("cvNom").textContent    = id("nom").value || "Nom complet";
+    id("cvMetier").textContent = id("metier").value || "Titre du poste recherché";
+
+    setTextIfNotEmpty("cvTelephone","📞 ", id("telephone").value);
+    setTextIfNotEmpty("cvEmail","✉ ", id("email").value);
+    setTextIfNotEmpty("cvAdresse","📍 ", id("adresse").value);
+    setTextIfNotEmpty("cvVille","Ville : ", id("ville").value);
+    setTextIfNotEmpty("cvPays","Pays : ", id("pays").value);
+    setTextIfNotEmpty("cvCin","CIN N° : ", id("cin").value);
+    setTextIfNotEmpty("cvDateFait","Fait le : ", id("dateFait").value);
+    setTextIfNotEmpty("cvFaitA","À : ", id("faitA").value);
+    setTextIfNotEmpty("cvDuplicata","Duplicata du : ", id("dateDuplicata").value);
+
+    id("cvProfil").innerHTML      = convertirTexte(id("profil").value) || "Votre profil professionnel apparaîtra ici.";
+    id("cvExperience").innerHTML  = convertirTexte(id("experience").value);
+    id("cvFormation").innerHTML   = convertirTexte(id("formation").value);
+    id("cvCompetences").innerHTML = convertirTexte(id("competences").value);
+    id("cvLangues").innerHTML     = convertirTexte(id("langues").value);
+    id("cvInterets").innerHTML    = convertirTexte(id("interets").value);
+    id("cvInfosSupp").innerHTML   = convertirTexte(id("infosSupp").value);
+    id("cvReferences").innerHTML  = convertirTexte(id("references").value) || "Disponibles sur demande.";
+
+    id("cvDeclarationTexte").innerHTML =
+      convertirTexte(id("declaration").value) ||
+      "Je soussigné(e), certifie sur l'honneur que les informations figurant dans le présent Curriculum Vitae sont exactes et sincères.";
+  }
+
+  [
+    "nom","metier","telephone","email","adresse","ville","pays",
+    "cin","dateFait","faitA","dateDuplicata",
+    "profil","experience","formation","competences",
+    "langues","interets","infosSupp","references","declaration"
+  ].forEach(function(champ){
+    document.getElementById(champ).addEventListener("input", mettreAJourCV);
+  });
+
+  mettreAJourCV();
+
+  function imprimerCV(){
+    mettreAJourCV();
+    document.querySelector(".formulaire").style.display="none";
+    window.print();
+    setTimeout(function(){
+      document.querySelector(".formulaire").style.display="block";
+    },1000);
+  }
+
+  function reinitialiser(){
+    if(confirm("Réinitialiser le formulaire ?")){
+      location.reload();
+    }
+  }
+</script>
+
+</body>
+</html>

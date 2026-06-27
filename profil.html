@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Profil | Madawork</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#f4f6fb;
+      color:#222;
+    }
+
+    .header{
+      background:white;
+      padding:20px;
+      text-align:center;
+      box-shadow:0 2px 10px rgba(0,0,0,.08);
+    }
+
+    .logo{
+      width:220px;
+      max-width:90%;
+    }
+
+    .retour{
+      display:block;
+      width:100%;
+      max-width:1100px;
+      margin:20px auto;
+      padding:14px;
+      background:#1f5fc3;
+      color:white;
+      text-decoration:none;
+      text-align:center;
+      border-radius:12px;
+      font-weight:700;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:15px;
+    }
+
+    .card{
+      background:white;
+      border-radius:20px;
+      padding:25px;
+      box-shadow:0 2px 15px rgba(0,0,0,.08);
+    }
+
+    .photo{
+      width:180px;
+      height:180px;
+      object-fit:cover;
+      border-radius:50%;
+      display:block;
+      margin:auto;
+      border:6px solid #eef3fb;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 16px;
+      border-radius:20px;
+      font-size:13px;
+      font-weight:700;
+      margin:15px auto;
+    }
+
+    .classique{
+      background:#eeeeee;
+      color:#555;
+    }
+
+    .verifie{
+      background:#2196f3;
+      color:white;
+    }
+
+    .premium{
+      background:#ff9800;
+      color:white;
+    }
+
+    .expert{
+      background:#f44336;
+      color:white;
+    }
+
+    .top{
+      background:#00b050;
+      color:white;
+    }
+
+    .nom{
+      font-size:32px;
+      font-weight:700;
+      color:#1f5fc3;
+      text-align:center;
+      margin-top:15px;
+    }
+
+    .titre{
+      font-size:19px;
+      color:#666;
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    .section{
+      font-size:22px;
+      font-weight:700;
+      color:#1f5fc3;
+      margin:25px 0 10px;
+    }
+
+    .info{
+      padding:12px;
+      border-bottom:1px solid #eee;
+      font-size:15px;
+    }
+
+    .protection{
+      background:#fff7da;
+      padding:18px;
+      border-radius:15px;
+      margin-top:20px;
+      text-align:center;
+      font-weight:600;
+      color:#8a6500;
+    }
+
+    .btn{
+      width:100%;
+      padding:15px;
+      border:none;
+      border-radius:12px;
+      margin-top:12px;
+      font-size:16px;
+      font-weight:700;
+      color:white;
+      cursor:pointer;
+    }
+
+    .debloquer{
+      background:#ff9800;
+    }
+
+    .recruter{
+      background:#00b050;
+    }
+
+    .signaler{
+      background:#e53935;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <a href="dashboard.html">
+      <img src="logomadw.png" class="logo">
+    </a>
+  </div>
+
+  <a href="profils.html" class="retour">
+    ⬅ Retour aux profils
+  </a>
+
+  <div class="container">
+    <div id="profil" class="card">
+      Chargement du profil...
+    </div>
+  </div>
+
+  <script>
+    const API = "https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+    const profilId = new URLSearchParams(window.location.search).get("id");
+alert(profilId);
+    let profil = null;
+
+    function badgeHtml(badge){
+      switch((badge || "").toUpperCase()){
+        case "TOP TALENT":
+        case "TOP_TALENT":
+          return '<span class="badge top">🥇 TOP TALENT</span>';
+        case "EXPERT":
+          return '<span class="badge expert">🔴 EXPERT</span>';
+        case "PREMIUM":
+          return '<span class="badge premium">🟠 PREMIUM</span>';
+        case "VERIFIE":
+          return '<span class="badge verifie">🔵 VÉRIFIÉ</span>';
+        default:
+          return '<span class="badge classique">⚪ STANDARD</span>';
+      }
+    }
+
+    async function chargerProfil(){
+      const zone = document.getElementById("profil");
+
+      if(!profilId){
+        zone.innerHTML = "<h2>Profil introuvable.</h2>";
+        return;
+      }
+
+      try{
+        // Récupère le profil
+        const rep = await fetch(API,{
+          method:"POST",
+          headers:{ "Content-Type":"text/plain;charset=utf-8" },
+          body:JSON.stringify({
+            action:"getProfil",
+            profilId:profilId
+          })
+        });
+
+        const data = await rep.json();
+
+        if(!data.success){
+  zone.innerHTML = "<h2>Profil introuvable.</h2>";
+  return;
+}
+
+console.log(data);
+console.log(data.profil);
+console.log(data.profil.photo);
+
+profil = data.profil;
+
+        // Vérifie si le profil est déjà acheté (contenu détaillé)
+        const repProfil = await fetch(API,{
+          method:"POST",
+          headers:{ "Content-Type":"text/plain;charset=utf-8" },
+          body:JSON.stringify({
+            action:"profilAchete",
+            userId:localStorage.getItem("userId"),
+            profilId:profil.id
+          })
+        });
+
+        const achatProfil = await repProfil.json();
+        const profilDebloque = achatProfil.achete === true;
+
+        // Vérifie si les coordonnées sont achetées
+        const repCoord = await fetch(API,{
+          method:"POST",
+          headers:{ "Content-Type":"text/plain;charset=utf-8" },
+          body:JSON.stringify({
+            action:"coordonneesAchetees",
+            userId:localStorage.getItem("userId"),
+            profilId:profil.id
+          })
+        });
+
+        const coord = await repCoord.json();
+        const coordonneesDebloquees = coord.achete === true;
+
+        zone.innerHTML = `
+<div style="text-align:center;">
+  <img
+    src="${profil.photo || 'logomadw.png'}"
+    class="photo"
+    onerror="this.src='logomadw.png'">
+  <br>
+  ${badgeHtml(profil.badge)}
+  ${profilDebloque ? `
+<div class="nom">${profil.nomComplet || ""}</div>
+<div class="titre">${profil.titreProfil || ""}</div>
+` : `
+<div class="nom">🔒 Talent confidentiel</div>
+<div class="titre">
+Débloquez le profil pour découvrir son identité.
+</div>
+`}
+
+<div class="info">
+  📂 <b>Catégorie :</b> ${profil.categorie || ""}
+</div>
+<div class="info">
+  🏢 <b>Domaine :</b> ${profil.domaine || ""}
+</div>
+<div class="info">
+  📍 <b>Ville :</b> ${profil.ville || ""}
+</div>
+<div class="info">
+  🟢 <b>Disponibilité :</b> ${profil.disponibilite || ""}
+</div>
+<div class="info">
+  👁 <b>Vues :</b> ${profil.vues || 0}
+</div>
+
+<div class="section">Présentation</div>
+<div class="info">${profil.presentation || ""}</div>
+
+${profilDebloque ? `
+
+<div class="section">Expérience</div>
+<div class="info">${profil.experience || ""}</div>
+
+<div class="section">Formation</div>
+<div class="info">${profil.formation || ""}</div>
+
+<div class="section">Langues</div>
+<div class="info">${profil.langues || ""}</div>
+
+` : `
+
+<div class="protection">
+🔒 L'expérience professionnelle, la formation et les langues sont protégées.
+
+<br><br>
+
+Débloquez le profil complet pour consulter le parcours professionnel du candidat.
+</div>
+
+`}
+
+${profilDebloque ? `
+  ${profilDebloque ? `
+
+<div class="section">Connaissances informatiques</div>
+<div class="info">${profil.informatique || ""}</div>
+
+<div class="section">Centres d'intérêt</div>
+<div class="info">${profil.centreInteret || ""}</div>
+
+<div class="section">Prétention salariale</div>
+<div class="info">${profil.pretentionSalariale || ""}</div>
+
+` : `
+
+<div class="protection">
+🔒 Les compétences informatiques, les centres d'intérêt et la prétention salariale sont protégés.
+
+<br><br>
+
+Débloquez le profil complet pour accéder à toutes les informations professionnelles.
+</div>
+
+`}
+` : `
+  <div class="protection">
+    🔒 Les informations détaillées sont protégées.
+    <br><br>
+    Débloquez le profil pour accéder au contenu complet.
+  </div>
+  <button
+    class="btn debloquer"
+    onclick="debloquerProfil()">
+    🔓 Débloquer le profil
+    (${Number(profil.profilCompletPrix||0).toLocaleString("fr-FR")} Ar)
+  </button>
+`}
+
+${coordonneesDebloquees ? `
+  <div class="section">Coordonnées</div>
+  <div class="info">📞 ${profil.telephone}</div>
+  <div class="info">📧 ${profil.email}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px;">
+
+${profilDebloque ? `
+
+
+
+` : ``}
+
+${coordonneesDebloquees ? `
+
+<div class="section">Coordonnées</div>
+
+<div class="info">📞 ${profil.telephone}</div>
+<div class="info">📧 ${profil.email}</div>
+
+<button
+class="btn recruter"
+onclick="window.location.href='tel:${profil.telephone}'">
+📞 Contacter le candidat
+</button>
+
+` : `
+
+<div class="protection">
+📞 Téléphone masqué<br>
+📧 Email masqué<br>
+📄 Téléchargement du CV protégé
+</div>
+
+<button
+class="btn debloquer"
+onclick="debloquerCoordonnees()">
+📞 Débloquer les coordonnées
+(${Number(profil.prixDeblocage||0).toLocaleString("fr-FR")} Ar)
+</button>
+
+`}
+
+</div>
+` : `
+  <div class="protection">
+    📞 Téléphone masqué<br>
+    📧 Email masqué<br>
+    📄 CV protégé
+  </div>
+  <button
+    class="btn debloquer"
+    onclick="debloquerCoordonnees()">
+    📞 Débloquer les coordonnées
+  </button>
+`}
+
+<button
+  class="btn recruter"
+  onclick="recruterProfil()">
+  🤝 Recruter via Madawork
+</button>
+
+<button
+  class="btn signaler"
+  onclick="signalerProfil()">
+  🚩 Signaler ce profil
+</button>
+`;
+      }catch(err){
+        console.error(err);
+        document.getElementById("profil").innerHTML = "Erreur de chargement du profil.";
+      }
+    }
+
+    async function debloquerProfil(){
+      const userId = localStorage.getItem("userId");
+
+      if(!userId){
+        alert("Veuillez vous connecter.");
+        return;
+      }
+
+      if(!confirm(
+        "Confirmez-vous le déblocage du profil ?\n\n" +
+        "Le montant de " +
+        Number(profil.prixDeblocage||0).toLocaleString("fr-FR") +
+        " Ar sera débité de votre solde."
+      )){
+        return;
+      }
+
+      try{
+        const rep = await fetch(API,{
+          method:"POST",
+          headers:{ "Content-Type":"text/plain;charset=utf-8" },
+          body:JSON.stringify({
+            action:"acheterProfil",
+            userId:userId,
+            profilId:profil.id,
+            prix: profil.profilCompletPrix
+          })
+        });
+
+        const data = await rep.json();
+        alert(data.message);
+
+        if(data.success){
+          location.reload();
+        }
+      }catch(err){
+        alert("Erreur de connexion.");
+      }
+    }
+
+    async function debloquerCoordonnees(){
+      const userId = localStorage.getItem("userId");
+
+      if(!userId){
+        alert("Veuillez vous connecter.");
+        return;
+      }
+
+      if(!confirm(
+        "Confirmez-vous le déblocage des coordonnées ?\n\n" +
+        "Le montant de " +
+        Number(profil.prixDeblocage||0).toLocaleString("fr-FR") +
+        " Ar sera débité de votre solde."
+      )){
+        return;
+      }
+
+      try{
+        const rep = await fetch(API,{
+          method:"POST",
+          headers:{ "Content-Type":"text/plain;charset=utf-8" },
+          body:JSON.stringify({
+            action:"acheterCoordonnees",
+            userId:userId,
+            profilId:profil.id,
+            prix:profil.prixDeblocage
+          })
+        });
+
+        const data = await rep.json();
+        alert(data.message);
+
+        if(data.success){
+          location.reload();
+        }
+      }catch(err){
+        alert("Erreur de connexion.");
+      }
+    }
+
+    function recruterProfil(){
+      window.location.href =
+        "mailto:bureau@madawork.com?subject=" +
+        encodeURIComponent("Recrutement du profil " + profil.id);
+    }
+
+    function signalerProfil(){
+      window.location.href =
+        "mailto:bureau@madawork.com?subject=" +
+        encodeURIComponent("Signalement du profil " + profil.id);
+
+}
+    // Lancement au chargement
+    chargerProfil();
+  </script>
+
+</body>
+</html>

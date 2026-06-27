@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Publier un profil | Madawork.com</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+color:#222;
+}
+
+.header{
+background:white;
+padding:20px;
+text-align:center;
+box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
+
+.logo{
+width:220px;
+max-width:90%;
+cursor:pointer;
+}
+
+.container{
+max-width:900px;
+margin:20px auto;
+padding:15px;
+}
+
+.retour{
+display:block;
+width:100%;
+padding:15px;
+background:#17438f;
+color:white;
+text-decoration:none;
+text-align:center;
+font-weight:700;
+border-radius:14px;
+margin-bottom:18px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:22px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.titre{
+font-size:32px;
+font-weight:800;
+color:#17438f;
+text-align:center;
+margin-bottom:10px;
+}
+
+.sousTitre{
+text-align:center;
+color:#666;
+margin-bottom:25px;
+line-height:1.8;
+}
+
+.photoBox{
+text-align:center;
+margin-bottom:25px;
+}
+
+.photo{
+width:170px;
+height:170px;
+border-radius:50%;
+border:5px solid #17438f;
+background:#f2f2f2;
+object-fit:cover;
+display:none;
+margin:auto;
+}
+
+.upload{
+margin-top:15px;
+}
+
+.section{
+margin-top:28px;
+margin-bottom:15px;
+padding:12px 18px;
+border-radius:12px;
+background:linear-gradient(90deg,#17438f,#1f5fc3);
+color:white;
+font-size:18px;
+font-weight:700;
+}
+
+label{
+display:block;
+margin-top:15px;
+margin-bottom:6px;
+font-weight:600;
+}
+
+.input,
+.select,
+.textarea{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+.textarea{
+min-height:120px;
+resize:vertical;
+}
+
+.btn{
+width:100%;
+padding:18px;
+margin-top:30px;
+background:#00b050;
+color:white;
+border:none;
+border-radius:15px;
+font-size:18px;
+font-weight:700;
+cursor:pointer;
+}
+
+.message{
+margin-top:20px;
+font-weight:700;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<a href="dashboard.html">
+
+<img
+src="logomadw.png"
+class="logo">
+
+</a>
+
+</div>
+
+<div class="container">
+
+<a
+href="dashboard.html"
+class="retour">
+
+⬅ Retour au tableau de bord
+
+</a>
+
+<div class="card">
+
+<div class="titre">
+
+📄 Publier un profil
+
+</div>
+
+<div class="sousTitre">
+
+Déposez gratuitement un profil professionnel sur <b>Madawork.com</b>. Après validation, il pourra être consulté par les recruteurs.
+
+</div>
+
+<div class="photoBox">
+
+<img
+id="photoPreview"
+class="photo">
+
+<input
+type="file"
+id="photo"
+class="upload"
+accept="image/*">
+
+</div>
+<div class="section">
+
+👤 Informations personnelles
+
+</div>
+
+<label>Nom complet</label>
+
+<input
+id="nomComplet"
+class="input"
+type="text"
+placeholder="Nom et prénom">
+
+<label>Ville</label>
+
+<input
+id="ville"
+class="input"
+type="text"
+placeholder="Ex : Antananarivo">
+
+<label>Téléphone</label>
+
+<input
+id="telephone"
+class="input"
+type="tel"
+placeholder="+261XXXXXXXXX">
+
+<label>Email</label>
+
+<input
+id="email"
+class="input"
+type="email"
+placeholder="email@exemple.com">
+
+<label>CIN (facultatif)</label>
+
+<input
+id="cin"
+class="input"
+type="text"
+placeholder="Numéro CIN">
+
+<div class="section">
+
+💼 Informations professionnelles
+
+</div>
+
+<label>Titre du profil</label>
+
+<input
+id="titreProfil"
+class="input"
+type="text"
+placeholder="Ex : Assistant virtuel">
+
+<label>Catégorie</label>
+
+<select
+id="categorie"
+class="select">
+
+<option value="">Sélectionner...</option>
+<option>Assistant virtuel</option>
+<option>Service Client</option>
+<option>Téléprospection</option>
+<option>Commercial</option>
+<option>Comptable</option>
+<option>Développeur Web</option>
+<option>Graphiste</option>
+<option>Community Manager</option>
+<option>Agent de saisie</option>
+<option>Traducteur</option>
+<option>Interprète</option>
+<option>Secrétaire</option>
+<option>Juriste</option>
+<option>Commis comptable</option>
+<option>RH</option>
+<option>Infirmier(ère)</option>
+<option>Médecin</option>
+<option>Enseignant</option>
+<option>Chauffeur</option>
+<option>Autre</option>
+
+</select>
+
+<label>Domaine</label>
+
+<input
+id="domaine"
+class="input"
+type="text"
+placeholder="Ex : BPO, Santé, Commerce...">
+
+<label>Disponibilité</label>
+
+<select
+id="disponibilite"
+class="select">
+
+<option>Disponible immédiatement</option>
+<option>Sous 7 jours</option>
+<option>Sous 15 jours</option>
+<option>Sous 30 jours</option>
+
+</select>
+
+<label>Prétention salariale</label>
+
+<input
+id="pretentionSalariale"
+class="input"
+type="text"
+placeholder="Ex : 1 200 000 Ar ou suivant vos grilles salariales">
+<div class="section">
+
+📝 Présentation professionnelle
+
+</div>
+
+<textarea
+id="presentation"
+class="textarea"
+placeholder="Présentez le candidat, son parcours, ses qualités et ses objectifs professionnels."></textarea>
+
+<div class="section">
+
+💼 Expériences professionnelles
+
+</div>
+
+<textarea
+id="experience"
+class="textarea"
+placeholder="Décrivez les principales expériences professionnelles..."></textarea>
+
+<div class="section">
+
+🎓 Formations et diplômes
+
+</div>
+
+<textarea
+id="formation"
+class="textarea"
+placeholder="Diplômes, études, certifications, formations..."></textarea>
+
+<div class="section">
+
+🌍 Langues
+
+</div>
+
+<textarea
+id="langues"
+class="textarea"
+placeholder="Ex : Malagasy, Français, Anglais..."></textarea>
+
+<div class="section">
+
+💻 Compétences informatiques
+
+</div>
+
+<textarea
+id="informatique"
+class="textarea"
+placeholder="Ex : Word, Excel, Canva, Google Workspace, IA..."></textarea>
+
+<div class="section">
+
+🎯 Centres d'intérêt
+
+</div>
+
+<textarea
+id="centreInteret"
+class="textarea"
+placeholder="Loisirs, passions, sports, musique, bénévolat..."></textarea>
+
+<div class="section">
+
+📜 Déclaration
+
+</div>
+
+<div style="
+background:#f8f9ff;
+padding:18px;
+border:1px solid #dbe4ff;
+border-radius:15px;
+line-height:1.8;
+">
+
+<label>
+
+<input
+type="checkbox"
+id="validation">
+
+J'atteste que les informations communiquées sont exactes.
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="autorisation">
+
+Je certifie avoir obtenu l'autorisation de publier ce profil sur Madawork.com.
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="cgu">
+
+J'accepte les Conditions Générales d'Utilisation de Madawork.com.
+
+</label>
+
+</div>
+
+<button
+id="btnCreer"
+class="btn"
+onclick="creerProfil()">
+
+📨 Publier ce profil
+
+</button>
+
+<div
+id="message"
+class="message">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let photoBase64="";
+
+document.getElementById("photo").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(ev){
+
+photoBase64=ev.target.result;
+
+document.getElementById("photoPreview").src=photoBase64;
+
+document.getElementById("photoPreview").style.display="block";
+
+};
+
+reader.readAsDataURL(file);
+
+});
+async function creerProfil(){
+
+if(
+!document.getElementById("validation").checked ||
+!document.getElementById("autorisation").checked ||
+!document.getElementById("cgu").checked
+){
+
+alert("Veuillez accepter les déclarations et les Conditions Générales d'Utilisation.");
+
+return;
+
+}
+
+const btn=document.getElementById("btnCreer");
+const message=document.getElementById("message");
+
+btn.disabled=true;
+btn.innerHTML="Publication en cours...";
+
+const data={
+
+action:"creerProfil",
+
+userId:localStorage.getItem("userId")||"",
+
+nomComplet:document.getElementById("nomComplet").value.trim(),
+
+ville:document.getElementById("ville").value.trim(),
+
+telephone:document.getElementById("telephone").value.trim(),
+
+email:document.getElementById("email").value.trim(),
+
+cin:document.getElementById("cin").value.trim(),
+
+photo:photoBase64,
+
+titreProfil:document.getElementById("titreProfil").value.trim(),
+
+categorie:document.getElementById("categorie").value,
+
+domaine:document.getElementById("domaine").value.trim(),
+
+disponibilite:document.getElementById("disponibilite").value,
+
+pretentionSalariale:document.getElementById("pretentionSalariale").value.trim(),
+
+presentation:document.getElementById("presentation").value.trim(),
+
+experience:document.getElementById("experience").value.trim(),
+
+formation:document.getElementById("formation").value.trim(),
+
+langues:document.getElementById("langues").value.trim(),
+
+informatique:document.getElementById("informatique").value.trim(),
+
+centreInteret:document.getElementById("centreInteret").value.trim()
+
+};
+
+try{
+
+const response=await fetch(API,{
+
+method:"POST",
+
+headers:{
+"Content-Type":"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify(data)
+
+});
+
+const result=await response.json();
+
+if(result.success){
+
+message.style.color="#00b050";
+
+message.innerHTML="✅ Profil transmis avec succès à Madawork.com.";
+
+setTimeout(function(){
+
+window.location="dashboard.html";
+
+},1500);
+
+}else{
+
+message.style.color="#d93025";
+
+message.innerHTML=result.message||"Impossible d'enregistrer ce profil.";
+
+}
+
+}catch(err){
+
+console.error(err);
+
+message.style.color="#d93025";
+
+message.innerHTML="Erreur de connexion.";
+
+}
+
+btn.disabled=false;
+
+btn.innerHTML="📨 Publier ce profil";
+
+}
+
+</script>
+
+</body>
+
+</html>

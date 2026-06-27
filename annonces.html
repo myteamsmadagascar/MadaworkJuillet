@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Annonces Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f6fb;
+padding:15px;
+}
+
+.logo{
+display:block;
+margin:auto;
+width:220px;
+max-width:90%;
+margin-bottom:20px;
+}
+
+.retour{
+display:block;
+width:100%;
+padding:12px;
+background:#1f5fc3;
+color:white;
+text-decoration:none;
+text-align:center;
+border-radius:10px;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.filtres{
+background:white;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.input,
+.select{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:10px;
+margin-bottom:10px;
+font-size:15px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.photo{
+width:100%;
+height:250px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:12px;
+display:block;
+}
+
+.badge{
+display:inline-block;
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.classique{
+background:#eeeeee;
+color:#555;
+}
+
+.verifie{
+background:#2196f3;
+color:white;
+}
+
+.premium{
+background:#ff9800;
+color:white;
+}
+
+.expert{
+background:#f44336;
+color:white;
+}
+
+.top{
+background:#4caf50;
+color:white;
+}
+
+.titre{
+font-size:22px;
+font-weight:bold;
+color:#1f5fc3;
+margin-bottom:10px;
+}
+
+.info{
+margin:5px 0;
+}
+
+.prix{
+font-size:24px;
+font-weight:bold;
+color:#00b050;
+margin:10px 0;
+}
+
+.btn{
+display:block;
+width:100%;
+padding:12px;
+background:#1f5fc3;
+color:white;
+text-decoration:none;
+text-align:center;
+border-radius:10px;
+font-weight:bold;
+margin-top:10px;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<a href="dashboard.html" class="retour">
+
+ Retour
+
+</a>
+
+<img src="logomadw.png" class="logo">
+
+<div class="filtres">
+
+<input
+type="text"
+id="recherche"
+class="input"
+placeholder="Rechercher une annonce...">
+
+<select
+id="domaine"
+class="select">
+
+<option value="">
+Tous les domaines
+</option>
+
+<option>Immobilier</option>
+<option>Emploi</option>
+<option>Formation</option>
+<option>Services</option>
+<option>Commerce</option>
+<option>Automobile</option>
+<option>Transport</option>
+<option>Informatique</option>
+<option>Agriculture</option>
+<option>BTP</option>
+<option>Hôtellerie & Restauration</option>
+<option>Santé</option>
+<option>Éducation</option>
+<option>Autres</option>
+
+</select>
+
+<select
+id="categorie"
+class="select">
+
+<option value="">
+Toutes les catégories
+</option>
+
+<option>Bien à louer</option>
+<option>Bien à vendre</option>
+<option>Terrain à vendre</option>
+<option>Terrain à louer</option>
+<option>Local commercial</option>
+<option>Offre d'emploi</option>
+<option>Recherche d'emploi</option>
+<option>Mission freelance</option>
+<option>Formation</option>
+<option>Service</option>
+<option>Autres</option>
+
+</select>
+
+<select
+id="badge"
+class="select">
+
+<option value="">
+Tous les badges
+</option>
+
+<option value="CLASSIQUE">
+ Classique
+</option>
+
+<option value="VERIFIE">
+ Vérifié
+</option>
+
+<option value="PREMIUM">
+ Premium
+</option>
+
+<option value="EXPERT">
+ Expert
+</option>
+
+<option value="TOP_TALENT">
+ Top Talent
+</option>
+
+</select>
+
+<input
+type="text"
+id="ville"
+class="input"
+placeholder="Ville">
+
+</div>
+
+<div id="liste">
+
+Chargement...
+
+</div>
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+let annonces = [];
+
+function badgeClassement(badge){
+
+switch(badge){
+
+case "TOP_TALENT":
+return 1;
+
+case "EXPERT":
+return 2;
+
+case "PREMIUM":
+return 3;
+
+case "VERIFIE":
+return 4;
+
+default:
+return 5;
+
+}
+
+}
+
+function badgeHtml(badge){
+
+switch(badge){
+
+case "TOP_TALENT":
+return '<span class="badge top"> TOP TALENT</span>';
+
+case "EXPERT":
+return '<span class="badge expert"> EXPERT</span>';
+
+case "PREMIUM":
+return '<span class="badge premium"> PREMIUM</span>';
+
+case "VERIFIE":
+return '<span class="badge verifie"> VÉRIFIÉ</span>';
+
+default:
+return '<span class="badge classique"> CLASSIQUE</span>';
+
+}
+
+}
+
+async function chargerAnnonces(){
+
+const div =
+document.getElementById("liste");
+
+try{
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+action:"getAnnonces"
+})
+});
+
+const data =
+await response.json();
+
+if(!data.success){
+
+div.innerHTML =
+"Aucune annonce disponible";
+
+return;
+
+}
+
+annonces =
+data.annonces || [];
+
+annonces.sort((a,b)=>
+badgeClassement(
+a.badgePublieur || ""
+)
+-
+badgeClassement(
+b.badgePublieur || ""
+)
+);
+
+afficherAnnonces(
+annonces
+);
+
+}catch(err){
+
+div.innerHTML =
+"Erreur de chargement";
+
+}
+
+}
+
+function afficherAnnonces(liste){
+
+const div =
+document.getElementById("liste");
+
+if(!liste.length){
+
+div.innerHTML =
+"Aucune annonce trouvée";
+
+return;
+
+}
+
+let html = "";
+
+liste.forEach(a=>{
+
+html += `
+
+<div class="card">
+
+${badgeHtml(
+a.badgePublieur || "CLASSIQUE"
+)}
+
+<img
+src="${a.image1}"
+referrerpolicy="no-referrer"
+onerror="this.src='logomadw.png'"
+class="photo">
+
+<div class="titre">
+
+${a.titre || ""}
+
+</div>
+
+<div class="prix">
+
+${Number(
+a.prix || 0
+).toLocaleString("fr-FR")}
+Ar
+
+</div>
+
+<div class="info">
+ ${a.domaine || ""}
+</div>
+
+<div class="info">
+ ${a.categorie || ""}
+</div>
+
+<div class="info">
+ ${a.ville || ""}
+</div>
+
+<div class="info">
+ ${a.nomPublieur || ""}
+</div>
+
+<div class="info">
+${a.description || ""}
+</div>
+
+<button
+class="btn"
+style="background:#dc3545"
+onclick="signalerAnnonce('${a.id}')">
+
+ Signaler cette annonce
+
+</button>
+
+
+<button
+class="btn"
+onclick="acheterAnnonce('${a.id}')">
+
+ Débloquer coordonnées
+(${a.prixDeblocage || 0} Ar)
+
+</button>
+
+</div>
+
+`;
+
+});
+
+div.innerHTML = html;
+
+}
+
+const synonymes = {
+
+immobilier:[
+"immobilier",
+"maison",
+"villa",
+"appartement",
+"terrain",
+"location"
+],
+
+emploi:[
+"emploi",
+"travail",
+"recrutement",
+"poste",
+"candidat"
+],
+
+commerce:[
+"commerce",
+"vente",
+"boutique",
+"commercial"
+],
+
+informatique:[
+"informatique",
+"developpeur",
+"développeur",
+"web",
+"application"
+]
+
+};
+
+function rechercher(){
+
+const mot =
+document
+.getElementById("recherche")
+.value
+.toLowerCase()
+.trim();
+
+const domaine =
+document
+.getElementById("domaine")
+.value
+.toLowerCase();
+
+const categorie =
+document
+.getElementById("categorie")
+.value
+.toLowerCase();
+
+const badge =
+document
+.getElementById("badge")
+.value;
+
+const ville =
+document
+.getElementById("ville")
+.value
+.toLowerCase();
+
+const resultat =
+annonces.filter(a=>{
+
+const texte = `
+
+${a.titre || ""}
+${a.description || ""}
+${a.domaine || ""}
+${a.categorie || ""}
+${a.ville || ""}
+${a.nomPublieur || ""}
+
+`
+.toLowerCase();
+
+let okRecherche =
+!mot ||
+texte.includes(mot);
+
+Object.values(
+synonymes
+).forEach(liste=>{
+
+if(
+liste.includes(mot)
+){
+
+liste.forEach(m=>{
+
+if(
+texte.includes(m)
+){
+okRecherche = true;
+}
+
+});
+
+}
+
+});
+
+const okDomaine =
+!domaine ||
+(a.domaine || "")
+.toLowerCase()
+.includes(domaine);
+
+const okCategorie =
+!categorie ||
+(a.categorie || "")
+.toLowerCase()
+.includes(categorie);
+
+const okBadge =
+!badge ||
+(a.badgePublieur || "")
+=== badge;
+
+const okVille =
+!ville ||
+(a.ville || "")
+.toLowerCase()
+.includes(ville);
+
+return (
+okRecherche &&
+okDomaine &&
+okCategorie &&
+okBadge &&
+okVille
+);
+
+});
+
+afficherAnnonces(
+resultat
+);
+
+}
+document
+.getElementById("recherche")
+.addEventListener(
+"keyup",
+rechercher
+);
+
+document
+.getElementById("domaine")
+.addEventListener(
+"change",
+rechercher
+);
+
+document
+.getElementById("categorie")
+.addEventListener(
+"change",
+rechercher
+);
+
+document
+.getElementById("badge")
+.addEventListener(
+"change",
+rechercher
+);
+
+document
+.getElementById("ville")
+.addEventListener(
+"keyup",
+rechercher
+);
+
+function signalerAnnonce(id){
+
+alert(
+"Merci. Veuillez envoyer votre signalement à l'équipe de modération Madawork."
+);
+
+}
+
+async function acheterAnnonce(id){
+
+const userId =
+localStorage.getItem(
+"userId"
+);
+
+if(!userId){
+
+alert(
+"Veuillez vous connecter."
+);
+
+return;
+
+}
+
+try{
+
+const response =
+await fetch(API,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+action:"acheterAnnonce",
+
+userId:userId,
+
+annonceId:id
+
+})
+
+});
+
+const data =
+await response.json();
+
+if(!data.success){
+
+alert(
+data.message
+);
+
+return;
+
+}
+
+alert(
+
+"Coordonnées débloquées\n\n" +
+
+"Téléphone : " +
+(data.telephone || "") +
+
+"\n\nEmail : " +
+(data.email || "")
+
+);
+
+}catch(err){
+
+alert(
+"Erreur de connexion."
+);
+
+}
+
+}
+
+chargerAnnonces();
+
+</script>
+
+</body>
+</html>

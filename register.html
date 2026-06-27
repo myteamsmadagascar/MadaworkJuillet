@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Inscription - Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#1f5fc3,#0d3f8f);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:550px;
+background:white;
+border-radius:25px;
+padding:30px;
+box-shadow:0 10px 35px rgba(0,0,0,.2);
+}
+
+.logo{
+display:block;
+margin:auto;
+width:230px;
+max-width:90%;
+margin-bottom:20px;
+}
+
+h1{
+text-align:center;
+color:#1f5fc3;
+margin-bottom:20px;
+font-size:28px;
+}
+
+.btn-retour{
+width:100%;
+padding:12px;
+border:none;
+border-radius:12px;
+background:#eef2fb;
+color:#1f5fc3;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:15px;
+}
+
+input,
+select{
+width:100%;
+padding:14px;
+margin-bottom:12px;
+border:1px solid #d9d9d9;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+input:focus,
+select:focus{
+border-color:#1f5fc3;
+}
+
+.btn-register{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1f5fc3;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-register:disabled{
+opacity:.7;
+}
+
+.message{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.success{
+color:#0a8f3c;
+}
+
+.error{
+color:#d40000;
+}
+
+.link{
+text-align:center;
+margin-top:20px;
+}
+
+.link a{
+text-decoration:none;
+color:#1f5fc3;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<button
+class="btn-retour"
+onclick="window.location='index.html'">
+⬅ Retour
+</button>
+
+<img
+src="logomadw.png"
+class="logo"
+alt="Madawork">
+
+<h1>Créer un compte</h1>
+
+<select id="typeCompte">
+<option value="PARTICULIER">Particulier</option>
+<option value="ENTREPRISE">Entreprise</option>
+</select>
+
+<input
+id="nom"
+placeholder="Nom">
+
+<input
+id="prenom"
+placeholder="Prénom">
+
+<input
+id="telephone"
+placeholder="Téléphone (sans 0 au début..)">
+
+<input
+id="email"
+placeholder="Email (facultatif)">
+
+<input
+type="password"
+id="motdepasse"
+placeholder="Mot de passe">
+
+<input
+type="password"
+id="confirmation"
+placeholder="Confirmer le mot de passe">
+
+<button
+class="btn-register"
+onclick="register()">
+Créer mon compte
+</button>
+
+<div
+id="message"
+class="message">
+</div>
+
+<div class="link">
+<a href="login.html">
+Déjà inscrit ? Se connecter
+</a>
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+async function register(){
+
+const msg =
+document.getElementById("message");
+
+msg.className="message";
+msg.innerHTML="";
+
+const typeCompte =
+document.getElementById("typeCompte").value;
+
+const nom =
+document.getElementById("nom").value.trim();
+
+const prenom =
+document.getElementById("prenom").value.trim();
+
+const telephone =
+document.getElementById("telephone").value.trim();
+
+const email =
+document.getElementById("email").value.trim();
+
+const motdepasse =
+document.getElementById("motdepasse").value;
+
+const confirmation =
+document.getElementById("confirmation").value;
+
+if(!nom){
+
+msg.className="message error";
+msg.innerHTML="Nom obligatoire";
+return;
+
+}
+
+if(!prenom){
+
+msg.className="message error";
+msg.innerHTML="Prénom obligatoire";
+return;
+
+}
+
+if(!telephone){
+
+msg.className="message error";
+msg.innerHTML="Téléphone obligatoire";
+return;
+
+}
+
+if(!motdepasse){
+
+msg.className="message error";
+msg.innerHTML="Mot de passe obligatoire";
+return;
+
+}
+
+if(motdepasse.length < 4){
+
+msg.className="message error";
+msg.innerHTML=
+"Mot de passe trop court";
+return;
+
+}
+
+if(motdepasse !== confirmation){
+
+msg.className="message error";
+msg.innerHTML=
+"Les mots de passe ne correspondent pas";
+return;
+
+}
+
+const btn =
+document.querySelector(".btn-register");
+
+btn.disabled=true;
+btn.innerHTML="Création...";
+
+try{
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+
+action:"register",
+
+typeCompte:typeCompte,
+nom:nom,
+prenom:prenom,
+telephone:telephone,
+email:email,
+motdepasse:motdepasse
+
+})
+});
+
+const data =
+await response.json();
+
+if(data.success){
+
+msg.className="message success";
+msg.innerHTML=
+"Compte créé avec succès";
+
+localStorage.setItem(
+"userId",
+data.userId
+);
+
+setTimeout(()=>{
+window.location="login.html";
+},1500);
+
+}else{
+
+msg.className="message error";
+msg.innerHTML=
+data.message;
+
+}
+
+}catch(err){
+
+msg.className="message error";
+msg.innerHTML=
+"Erreur de connexion";
+
+console.log(err);
+
+}
+
+btn.disabled=false;
+btn.innerHTML="Créer mon compte";
+
+}
+
+</script>
+
+</body>
+</html>

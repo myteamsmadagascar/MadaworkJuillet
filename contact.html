@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f6fb;
+padding:15px;
+}
+
+.logo{
+display:block;
+margin:auto;
+width:220px;
+margin-bottom:20px;
+}
+
+.retour{
+display:block;
+background:#1f5fc3;
+color:white;
+text-decoration:none;
+padding:12px;
+border-radius:10px;
+text-align:center;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+h1{
+color:#1f5fc3;
+margin-bottom:15px;
+text-align:center;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+button{
+width:100%;
+padding:14px;
+background:#00b050;
+color:white;
+border:none;
+border-radius:10px;
+font-weight:bold;
+font-size:16px;
+}
+
+.info{
+text-align:center;
+margin-top:20px;
+color:#555;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="retour">
+⬅ Retour
+</a>
+
+<img src="logomadw.png" class="logo">
+
+<div class="card">
+
+<h1>Nous écrire</h1>
+
+<input type="text" id="nom" placeholder="Nom complet">
+
+<input type="text" id="telephone" placeholder="Téléphone">
+
+<input type="email" id="email" placeholder="Email">
+
+<select id="categorie">
+<option>Information</option>
+<option>Recrutement</option>
+<option>Formation</option>
+<option>Annonce</option>
+<option>Support Technique</option>
+<option>Partenariat</option>
+<option>Autre</option>
+</select>
+
+<input type="text" id="sujet" placeholder="Sujet">
+
+<textarea id="message" placeholder="Votre message"></textarea>
+
+<button onclick="envoyerMessage()">
+✉️ Envoyer le message
+</button>
+
+<div class="info">
+
+📧 bureau@madawork.com
+
+<br><br>
+
+🌐 www.madawork.com
+
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+async function envoyerMessage(){
+
+const response = await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+
+action:"envoyerMessage",
+
+nom:document.getElementById("nom").value,
+telephone:document.getElementById("telephone").value,
+email:document.getElementById("email").value,
+categorie:document.getElementById("categorie").value,
+sujet:document.getElementById("sujet").value,
+message:document.getElementById("message").value
+
+})
+});
+
+const data = await response.json();
+
+if(data.success){
+
+alert("Message envoyé avec succès.");
+
+document.getElementById("nom").value="";
+document.getElementById("telephone").value="";
+document.getElementById("email").value="";
+document.getElementById("sujet").value="";
+document.getElementById("message").value="";
+
+}else{
+
+alert(data.message);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Madawork</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f8f5ef;
+color:#333;
+}
+
+.header{
+background:white;
+padding:25px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo{
+width:280px;
+max-width:90%;
+}
+
+.slider-container{
+width:100%;
+background:white;
+overflow:hidden;
+}
+
+.slider{
+width:100%;
+height:auto;
+max-height:550px;
+object-fit:contain;
+display:block;
+background:white;
+transition:opacity .5s;
+}
+
+.container{
+padding:20px;
+max-width:1000px;
+margin:auto;
+}
+
+.titre{
+font-size:42px;
+font-weight:800;
+text-align:center;
+color:#d4af37;
+margin-top:20px;
+margin-bottom:10px;
+}
+
+.slogan{
+text-align:center;
+font-size:20px;
+color:#555;
+line-height:1.6;
+margin-bottom:15px;
+}
+
+.presentation{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+text-align:center;
+font-size:18px;
+line-height:2;
+margin-bottom:25px;
+animation:apparition 1.5s ease;
+}
+
+.actions{
+display:flex;
+gap:12px;
+margin-bottom:15px;
+}
+
+.btn{
+flex:1;
+padding:16px;
+border-radius:12px;
+text-decoration:none;
+text-align:center;
+font-weight:bold;
+font-size:17px;
+}
+
+.login{
+background:#111;
+color:white;
+}
+
+.register{
+background:#d4af37;
+color:#111;
+}
+
+.service{
+display:block;
+width:100%;
+background:#d4af37;
+color:#111;
+text-decoration:none;
+text-align:center;
+padding:18px;
+border-radius:12px;
+font-size:20px;
+font-weight:bold;
+margin-bottom:25px;
+}
+
+.section{
+background:white;
+padding:20px;
+border-radius:15px;
+margin-bottom:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+border-left:5px solid #d4af37;
+}
+
+.section h2{
+color:#111;
+margin-bottom:10px;
+font-size:24px;
+}
+
+.section p{
+line-height:1.8;
+}
+
+@keyframes apparition{
+
+from{
+opacity:0;
+transform:translateY(20px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@media(max-width:768px){
+
+.actions{
+flex-direction:column;
+}
+
+.titre{
+font-size:32px;
+}
+
+.slogan{
+font-size:18px;
+}
+
+}
+.footer{
+background:#111;
+color:white;
+padding:30px 20px;
+text-align:center;
+margin-top:20px;
+}
+
+.footer a{
+color:white;
+text-decoration:none;
+}
+
+.footer p{
+text-align:center;
+margin:10px 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<img src="logomadw.png" class="logo">
+
+</div>
+
+<div class="slider-container">
+
+<img
+id="slider"
+class="slider"
+src="cover1.jpg">
+
+</div>
+
+<div class="container">
+
+<div class="titre">
+Créez votre compte gratuitement
+</div>
+
+<div class="presentation">
+🚀 Accédez à de nombreuses opportunités
+
+<br>
+
+👨‍💼 Publiez votre profil professionnel
+
+<br>
+
+📄 Générez CV, contrats et documents
+
+<br>
+
+🧠 Passez des tests professionnels
+
+<br>
+
+🎓 Accédez à des formations
+
+<br>
+
+🤝 Développez votre réseau et votre activité
+
+</div>
+
+<div class="actions">
+
+<a href="login.html" class="btn login">
+Connexion
+</a>
+
+<a href="register.html" class="btn register">
+Créer un compte
+</a>
+
+</div>
+
+<a href="contact.html" class="service">
+📞 SERVICE CLIENT
+</a>
+<div class="section">
+
+<h2>💼 Emplois & Opportunités</h2>
+
+<p>
+
+Découvrez les meilleures opportunités professionnelles, missions freelance, stages et emplois partout à Madagascar.
+
+<br><br>
+
+✔ Trouvez des offres adaptées à votre profil
+
+<br>
+
+✔ Développez votre carrière
+
+<br>
+
+✔ Entrez en contact avec des recruteurs
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>⭐ Annonces Premium</h2>
+
+<p>
+
+Locaux professionnels, bureaux, open spaces, entrepôts, showrooms, maisons à louer, véhicules, produits et services.
+
+<br><br>
+
+✔ Plus de visibilité
+
+<br>
+
+✔ Plus de contacts
+
+<br>
+
+✔ Plus d'opportunités
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>👨‍💼 Talents & Profils</h2>
+
+<p>
+
+Publiez votre profil professionnel et augmentez votre visibilité auprès des entreprises, clients et recruteurs.
+
+<br><br>
+
+✔ Freelances
+
+<br>
+
+✔ Prestataires
+
+<br>
+
+✔ Demandeurs d'emploi
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>📄 Générateur de Documents</h2>
+
+<p>
+
+Créez rapidement vos documents professionnels.
+
+<br><br>
+
+✔ CV Professionnels
+
+<br>
+
+✔ Lettres de Motivation
+
+<br>
+
+✔ Contrats
+
+<br>
+
+✔ Factures
+
+<br>
+
+✔ Attestations
+
+<br>
+
+✔ Certificats
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>🧠 Tests Professionnels</h2>
+
+<p>
+
+Évaluez vos compétences grâce à nos tests.
+
+<br><br>
+
+✔ Psychologie
+
+<br>
+
+✔ Français
+
+<br>
+
+✔ Anglais
+
+<br>
+
+✔ Informatique
+
+<br>
+
+✔ Service Client
+
+<br>
+
+✔ Tests Métiers
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>🎓 Formations & Perfectionnement</h2>
+
+<p>
+
+Touchez l'excellence et atteignez les meilleures performances.
+
+<br><br>
+
+Que vous soyez particulier ou entreprise, développez vos compétences grâce à nos formations professionnelles.
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>🚀 Services aux Entreprises</h2>
+
+<p>
+
+✔ Recrutement Spécifique
+
+<br>
+
+✔ Digital Marketing
+
+<br>
+
+✔ Community Management
+
+<br>
+
+✔ Service Client Externalisé
+
+<br>
+
+✔ Téléprospection
+
+<br>
+
+✔ Assistance Virtuelle
+
+<br>
+
+✔ Consulting
+
+<br>
+
+✔ Campagnes (Phoning / Mailing/ SMS)
+
+</p>
+
+</div>
+
+<div class="section" style="text-align:center;">
+
+<a href="contact.html"
+style="
+display:inline-block;
+background:#d4af37;
+color:#111;
+padding:14px 25px;
+border-radius:12px;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+">
+
+✉️ Nous consulter
+
+</a></p></div><div class="section" style="text-align:center;"><h2>📱 Nous suivre</h2><p><a href="https://www.facebook.com/MetierduwebMada"
+target="_blank"
+style="
+color:#1877F2;
+font-weight:bold;
+text-decoration:none;
+font-size:18px;
+">
+
+📘 Facebook
+
+</a><br><br>
+
+<a href="https://youtube.com/@madaworkcentre?si=PVyvUaurebnxoAjG"
+target="_blank"
+style="
+color:#FF0000;
+font-weight:bold;
+text-decoration:none;
+font-size:18px;
+">
+
+▶️ YouTube
+
+</a></p></div></div><div class="footer"><b style="font-size:15px;color:#d4af37;">
+MADAWORK.COM
+</b><br><br>
+
+Trouver le talent. Construire l'avenir.
+
+
+<br><br>
+
+📧 bureau@madawork.com
+
+<br>🌐 www.madawork.com
+
+<br><br>
+
+© Madawork.com 2026 / 
+
+</div><script>
+
+const slides = [
+
+"cover1.jpg",
+"cover2.jpg",
+"cover3.jpg",
+"cover4.jpg",
+"cover5.jpg",
+"cover6.jpg",
+"cover7.jpg"
+
+];
+
+let current = 0;
+
+setInterval(()=>{
+
+current++;
+
+if(current >= slides.length){
+
+current = 0;
+
+}
+
+const slider =
+document.getElementById("slider");
+
+slider.style.opacity = "0";
+
+setTimeout(()=>{
+
+slider.src = slides[current];
+
+slider.style.opacity = "1";
+
+},300);
+
+},4000);
+
+</script></body>
+</html>

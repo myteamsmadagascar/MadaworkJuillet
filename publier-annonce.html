@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="fr">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Publier une annonce</title><style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f4f7fc;
+padding:15px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.logo{
+display:block;
+margin:auto;
+width:220px;
+max-width:90%;
+margin-bottom:20px;
+cursor:pointer;
+}
+
+.retour{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#eef2fb;
+color:#1f5fc3;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:15px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.titre{
+font-size:24px;
+font-weight:bold;
+color:#1f5fc3;
+text-align:center;
+margin-bottom:20px;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:14px;
+border:1px solid #ddd;
+border-radius:12px;
+margin-bottom:12px;
+font-size:15px;
+}
+
+textarea{
+height:120px;
+resize:none;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1f5fc3;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.message{
+margin-top:15px;
+text-align:center;
+font-weight:bold;
+}
+
+.success{
+color:#00b050;
+}
+
+.error{
+color:#e53935;
+}
+
+</style></head><body><div class="container"><button
+class="retour"
+onclick="window.location='dashboard.html'">
+⬅ Retour
+</button>
+
+<img
+src="logomadw.png"
+class="logo"
+onclick="window.location='index.html'">
+
+<div class="card"><div class="titre">
+Publier une annonce
+</div><select id="categorie">
+<option value="">Catégorie</option>
+<option>Emploi</option>
+<option>Formation</option>
+<option>Service</option>
+<option>Immobilier</option>
+<option>Vente</option>
+<option>Location</option>
+<option>Divers</option>
+</select><input
+id="titre"
+placeholder="Titre de l'annonce">
+
+<textarea
+id="description"
+placeholder="Description">
+</textarea><input
+type="number"
+id="prix"
+placeholder="Prix">
+
+<input
+id="ville"
+placeholder="Ville">
+
+<input
+id="telephone"
+placeholder="Téléphone">
+
+<input
+id="email"
+placeholder="Email">
+
+<input
+id="image1"
+placeholder="Lien image 1">
+
+<input
+id="image2"
+placeholder="Lien image 2">
+
+<input
+id="image3"
+placeholder="Lien image 3">
+
+<button
+class="btn"
+onclick="publierAnnonce()">
+Publier l'annonce
+</button>
+
+<div
+id="message"
+class="message">
+</div></div></div><script>
+
+const API =
+"https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+async function publierAnnonce(){
+
+const userId =
+localStorage.getItem("userId");
+
+const nom =
+(localStorage.getItem("userNom") || "") +
+" " +
+(localStorage.getItem("userPrenom") || "");
+
+const msg =
+document.getElementById("message");
+
+const response =
+await fetch(API,{
+method:"POST",
+body:JSON.stringify({
+
+action:"ajouterAnnonce",
+
+userId:userId,
+nomPublieur:nom,
+typeCompte:"PARTICULIER",
+
+categorie:
+document.getElementById("categorie").value,
+
+titre:
+document.getElementById("titre").value,
+
+description:
+document.getElementById("description").value,
+
+image1:
+document.getElementById("image1").value,
+
+image2:
+document.getElementById("image2").value,
+
+image3:
+document.getElementById("image3").value,
+
+telephone:
+document.getElementById("telephone").value,
+
+email:
+document.getElementById("email").value,
+
+prix:
+document.getElementById("prix").value,
+
+typeAnnonce:"STANDARD",
+
+ville:
+document.getElementById("ville").value
+
+})
+});
+
+const data =
+await response.json();
+
+if(data.success){
+
+msg.className =
+"message success";
+
+msg.innerHTML =
+"Annonce publiée avec succès";
+
+}else{
+
+msg.className =
+"message error";
+
+msg.innerHTML =
+data.message;
+
+}
+
+}
+
+</script></body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Dashboard Administrateur | Madawork</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef3fb;
+color:#222;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:20px;
+}
+
+.logo{
+display:block;
+margin:auto;
+width:240px;
+max-width:90%;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+.header{
+
+background:linear-gradient(135deg,#17438f,#1f5fc3);
+
+color:white;
+
+padding:30px;
+
+border-radius:25px;
+
+box-shadow:0 10px 30px rgba(0,0,0,.18);
+
+text-align:center;
+
+margin-bottom:25px;
+
+}
+
+.header h1{
+
+font-size:36px;
+
+margin-bottom:10px;
+
+}
+
+.header p{
+
+opacity:.95;
+
+line-height:1.8;
+
+}
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.card{
+
+background:white;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+position:relative;
+
+}
+
+.nombre{
+
+font-size:36px;
+
+font-weight:800;
+
+color:#17438f;
+
+}
+
+.titre{
+
+margin-top:8px;
+
+color:#666;
+
+font-size:15px;
+
+}
+
+.notification{
+
+position:absolute;
+
+top:12px;
+
+right:12px;
+
+background:#e53935;
+
+color:white;
+
+font-size:12px;
+
+font-weight:700;
+
+padding:4px 9px;
+
+border-radius:20px;
+
+display:none;
+
+}
+
+.alertes{
+
+margin-top:25px;
+
+background:white;
+
+border-radius:20px;
+
+padding:25px;
+
+box-shadow:0 6px 18px rgba(0,0,0,.08);
+
+}
+
+.alertes h2{
+
+color:#17438f;
+
+margin-bottom:20px;
+
+}
+
+.alerte{
+
+padding:12px;
+
+margin-bottom:10px;
+
+border-left:6px solid #e53935;
+
+background:#fff5f5;
+
+border-radius:10px;
+
+display:none;
+
+font-weight:600;
+
+}
+
+.menu{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.btn{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:95px;
+
+border-radius:18px;
+
+color:white;
+
+font-size:17px;
+
+font-weight:700;
+
+text-decoration:none;
+
+text-align:center;
+
+padding:18px;
+
+box-shadow:0 8px 18px rgba(0,0,0,.12);
+
+transition:.25s;
+
+}
+
+.btn:active{
+
+transform:scale(.97);
+
+}
+
+@media(max-width:700px){
+
+.menu{
+
+grid-template-columns:1fr 1fr;
+
+}
+
+.header h1{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img
+src="logomadw.png"
+class="logo"
+onclick="window.location='dashboard-admin.html'">
+
+<div class="header">
+
+<h1>
+
+🛡️ Dashboard Administrateur
+
+</h1>
+
+<p>
+
+Centre de supervision de Madawork.com
+
+</p>
+
+<div class="stats">
+
+<div class="card">
+
+<div
+class="notification"
+id="notifUsers">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbUsers">
+
+0
+
+</div>
+
+<div class="titre">
+
+👥 Utilisateurs
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div
+class="notification"
+id="notifProfils">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbProfils">
+
+0
+
+</div>
+
+<div class="titre">
+
+👤 Profils
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div
+class="notification"
+id="notifRecharges">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbRecharges">
+
+0
+
+</div>
+
+<div class="titre">
+
+💰 Recharges
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div
+class="notification"
+id="notifBadges">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbBadges">
+
+0
+
+</div>
+
+<div class="titre">
+
+🏅 Badges
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div
+class="notification"
+id="notifMessages">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbMessages">
+
+0
+
+</div>
+
+<div class="titre">
+
+💬 Messages
+
+</div>
+
+</div>
+
+<div class="card">
+
+<div
+class="notification"
+id="notifAnnonces">
+
+0
+
+</div>
+
+<div
+class="nombre"
+id="nbAnnonces">
+
+0
+
+</div>
+
+<div class="titre">
+
+📢 Annonces
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="alertes">
+
+<h2>
+
+🔔 Notifications Administrateur
+
+</h2>
+
+<div
+id="alerteUsers"
+class="alerte">
+
+👥 Nouveaux utilisateurs à consulter
+
+</div>
+
+<div
+id="alerteRecharges"
+class="alerte">
+
+💰 Recharges en attente de validation
+
+</div>
+
+<div
+id="alerteBadges"
+class="alerte">
+
+🏅 Demandes de badges en attente
+
+</div>
+
+<div
+id="alerteAnnonces"
+class="alerte">
+
+📢 Annonces à valider
+
+</div>
+
+<div
+id="alerteMessages"
+class="alerte">
+
+💬 Messages non lus
+
+</div>
+
+</div>
+
+<div class="menu">
+<a
+href="admin-users.html"
+class="btn"
+style="background:linear-gradient(135deg,#1565c0,#0d47a1);">
+
+👥<br>
+Utilisateurs
+
+</a>
+
+<a
+href="admin-profils.html"
+class="btn"
+style="background:linear-gradient(135deg,#00b050,#00853c);">
+
+👤<br>
+Profils
+
+</a>
+
+<a
+href="admin-recharges.html"
+class="btn"
+style="background:linear-gradient(135deg,#8e24aa,#6a1b9a);">
+
+💰<br>
+Recharges
+
+</a>
+
+<a
+href="admin-badges.html"
+class="btn"
+style="background:linear-gradient(135deg,#ff9800,#ef6c00);">
+
+🏅<br>
+Badges
+
+</a>
+
+<a
+href="admin-achats.html"
+class="btn"
+style="background:linear-gradient(135deg,#e53935,#b71c1c);">
+
+🛒<br>
+Achats
+
+</a>
+
+<a
+href="admin-commandes.html"
+class="btn"
+style="background:linear-gradient(135deg,#00897b,#00695c);">
+
+📦<br>
+Commandes
+
+</a>
+
+<a
+href="admin-annonces.html"
+class="btn"
+style="background:linear-gradient(135deg,#fb8c00,#ef6c00);">
+
+📢<br>
+Annonces
+
+</a>
+
+<a
+href="admin-services.html"
+class="btn"
+style="background:linear-gradient(135deg,#3949ab,#1a237e);">
+
+🛠️<br>
+Services
+
+</a>
+
+<a
+href="admin-formations.html"
+class="btn"
+style="background:linear-gradient(135deg,#26a69a,#00796b);">
+
+🎓<br>
+Formations
+
+</a>
+
+<a
+href="admin-tests.html"
+class="btn"
+style="background:linear-gradient(135deg,#7cb342,#558b2f);">
+
+📝<br>
+Tests
+
+</a>
+
+<a
+href="admin-documents.html"
+class="btn"
+style="background:linear-gradient(135deg,#6d4c41,#4e342e);">
+
+📄<br>
+Documents
+
+</a>
+
+<a
+href="admin-messages.html"
+class="btn"
+style="background:linear-gradient(135deg,#039be5,#0277bd);">
+
+💬<br>
+Messages
+
+</a>
+
+<a
+href="admin-parametres.html"
+class="btn"
+style="background:linear-gradient(135deg,#546e7a,#37474f);">
+
+⚙️<br>
+Paramètres
+
+</a>
+
+<a
+href="admin-login.html"
+class="btn"
+style="background:linear-gradient(135deg,#d32f2f,#b71c1c);">
+
+🚪<br>
+Déconnexion
+
+</a>
+
+</div>
+<div style="
+margin-top:30px;
+padding:25px;
+background:white;
+border-radius:20px;
+box-shadow:0 5px 18px rgba(0,0,0,.08);
+">
+
+<h2 style="
+text-align:center;
+color:#17438f;
+margin-bottom:20px;
+">
+
+⚡ Actions rapides
+
+</h2>
+
+<div class="menu">
+
+<a
+href="../index.html"
+class="btn"
+style="background:linear-gradient(135deg,#1976d2,#0d47a1);">
+
+🌐<br>
+Retour au site
+
+</a>
+
+<a
+href="dashboard-admin.html"
+class="btn"
+style="background:linear-gradient(135deg,#00b050,#00853c);">
+
+🔄<br>
+Actualiser
+
+</a>
+
+</div>
+
+</div>
+
+<div style="
+margin-top:30px;
+padding:25px;
+background:#17438f;
+border-radius:20px;
+color:white;
+text-align:center;
+line-height:1.8;
+box-shadow:0 8px 20px rgba(0,0,0,.12);
+">
+
+<h2>
+
+📈 Résumé Administrateur
+
+</h2>
+
+<p>
+
+Le tableau de bord affiche en temps réel :
+
+</p>
+
+<p>
+
+👥 Nouveaux utilisateurs<br>
+
+👤 Nouveaux profils<br>
+
+💰 Recharges en attente<br>
+
+🏅 Demandes de badges à traiter<br>
+
+📢 Annonces à valider<br>
+
+💬 Messages non lus<br>
+
+🛒 Achats réalisés<br>
+
+📦 Commandes de services
+
+</p>
+
+<p style="margin-top:15px;">
+
+Les notifications disparaissent automatiquement après traitement.
+
+</p>
+
+</div>
+
+<div style="
+margin-top:25px;
+text-align:center;
+font-size:13px;
+color:#777;
+line-height:1.8;
+">
+
+<b>Madawork.com</b><br>
+
+Dashboard Administrateur sécurisé<br>
+
+Version 2026
+
+</div>
+
+</div>
+
+<script>
+
+const API="https://script.google.com/macros/s/AKfycbxE739OhmpnuOPhWCnRoe8uA2QvUEUP5_8kbLWpoU1m6NVxpiCU9_dkflQMau9r22RPoQ/exec";
+
+window.onload=function(){
+
+// Ici seront appelées les fonctions :
+// getUsers()
+// getProfils()
+// getRecharges()
+// getBadges()
+// getMessages()
+// getAnnonces()
+// getAchats()
+
+};
+
+function logout(){
+
+if(confirm("Voulez-vous vous déconnecter ?")){
+
+localStorage.removeItem("admin");
+
+window.location.href="admin-login.html";
+
+}
+
+}
+
+</script>
+</body>
+</html>
